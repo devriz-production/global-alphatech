@@ -1,0 +1,261 @@
+---
+import Logo from './Logo.astro';
+import Icon from './Icon.astro';
+import { nav, cta, site, whatsappLink } from '../data/site';
+import { practices, servicesIn } from '../data/services';
+
+const path = Astro.url.pathname;
+const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
+const wa = whatsappLink();
+---
+
+<div id="top-sentinel" class="absolute top-0 h-px w-px" aria-hidden="true"></div>
+<header
+  id="site-header"
+  class="sticky top-0 z-50 border-b border-transparent bg-bg transition-[border-color] duration-300 data-[scrolled]:border-line"
+  style="view-transition-name: site-header"
+>
+  <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-50 focus:rounded-full focus:bg-fg focus:px-4 focus:py-2 focus:text-bg">Skip to content</a>
+  <div class="wrap flex h-[var(--header-h)] items-center gap-6">
+    <a href="/" class="mr-auto shrink-0 lg:mr-0" aria-label="Global Alpha Tech, home">
+      <Logo />
+    </a>
+
+    <nav class="mx-auto hidden lg:block" aria-label="Main">
+      <ul class="flex items-center gap-1">
+        {
+          nav.map((item) =>
+            item.href === '/services/' ? (
+              <li class="relative" data-mega-root>
+                <button
+                  type="button"
+                  class:list={[
+                    'group flex items-center gap-1 rounded-full px-3.5 py-2 text-[0.95rem] font-[520] transition-colors hover:bg-surface',
+                    isActive(item.href) && 'text-accent-text',
+                  ]}
+                  aria-expanded="false"
+                  aria-controls="mega"
+                  data-mega-toggle
+                >
+                  {item.label}
+                  <Icon name="chevron-down" size={16} class="transition-transform duration-300 group-aria-expanded:rotate-180" />
+                </button>
+              </li>
+            ) : (
+              <li>
+                <a
+                  href={item.href}
+                  class:list={[
+                    'block rounded-full px-3.5 py-2 text-[0.95rem] font-[520] transition-colors hover:bg-surface',
+                    isActive(item.href) && 'text-accent-text',
+                  ]}
+                  aria-current={isActive(item.href) ? 'page' : undefined}
+                >
+                  {item.label}
+                </a>
+              </li>
+            ),
+          )
+        }
+      </ul>
+    </nav>
+
+    <div class="hidden items-center gap-4 lg:flex">
+      <a href={site.phoneHref} class="link-u hidden text-[0.95rem] font-[520] whitespace-nowrap tabular-nums xl:inline">{site.phone}</a>
+      <a href={cta.href} class="btn btn-primary btn-sm">
+        {cta.label}
+        <Icon name="arrow-right" size={16} />
+      </a>
+    </div>
+
+    <button
+      type="button"
+      class="-mr-2 flex h-11 items-center gap-2 rounded-full px-3 text-[0.95rem] font-[560] lg:hidden"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      data-menu-toggle
+    >
+      <span data-menu-label>Menu</span>
+      <Icon name="menu" size={22} />
+    </button>
+  </div>
+
+  <!-- Services mega menu (desktop) -->
+  <div
+    id="mega"
+    class="absolute inset-x-0 top-full hidden border-y border-line bg-bg shadow-[0_30px_60px_-30px_rgb(14_16_48/0.25)] data-[open]:block"
+    data-mega
+  >
+    <div class="wrap grid grid-cols-12 gap-8 py-10">
+      {
+        practices.map((p) => (
+          <div class="col-span-3">
+            <p class="t-label text-muted">{p.name}</p>
+            <ul class="mt-5 space-y-1">
+              {servicesIn(p.id).map((s) => (
+                <li>
+                  <a href={`/services/${s.slug}/`} class="group -mx-3 block rounded-xl px-3 py-2.5 transition-colors hover:bg-surface">
+                    <span class="flex items-center justify-between gap-3 font-[560]">
+                      {s.short.charAt(0).toUpperCase() + s.short.slice(1)}
+                      <Icon name="arrow-right" size={16} class="-translate-x-1 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100" />
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+      <div class="theme-night col-span-3 flex flex-col justify-between rounded-2xl p-6">
+        <div>
+          <p class="t-label text-alpha-light">Not sure where to start?</p>
+          <p class="mt-3 font-display text-2xl leading-tight font-[640] tracking-tight">Tell us the goal. We will suggest the mix.</p>
+        </div>
+        <div class="mt-6 flex flex-col gap-3">
+          <a href={cta.href} class="btn btn-alpha btn-sm w-full">{cta.label}<Icon name="arrow-right" size={16} /></a>
+          <a href="/services/" class="link-arrow text-sm text-muted hover:text-fg">All services <Icon name="arrow-up-right" size={14} /></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile menu -->
+  <div
+    id="mobile-menu"
+    class="fixed inset-x-0 top-[var(--header-h)] bottom-0 hidden overflow-y-auto overscroll-contain border-t border-line bg-bg data-[open]:block lg:!hidden"
+    data-menu
+  >
+    <nav class="wrap flex min-h-full flex-col py-6" aria-label="Mobile">
+      <ul class="divide-y divide-line border-b border-line">
+        {
+          nav.map((item) =>
+            item.href === '/services/' ? (
+              <li>
+                <details class="group">
+                  <summary class="flex cursor-pointer list-none items-center justify-between py-4 font-display text-3xl font-[680] tracking-tight [&::-webkit-details-marker]:hidden">
+                    {item.label}
+                    <Icon name="plus" size={24} class="transition-transform duration-300 group-open:rotate-45" />
+                  </summary>
+                  <div class="pb-5">
+                    <a href="/services/" class="mb-3 inline-flex items-center gap-1 text-sm font-[560] text-accent-text">All services <Icon name="arrow-right" size={14} /></a>
+                    {practices.map((p) => (
+                      <div class="mt-4">
+                        <p class="t-label text-muted">{p.name}</p>
+                        <ul class="mt-2 grid gap-0.5">
+                          {servicesIn(p.id).map((s) => (
+                            <li>
+                              <a href={`/services/${s.slug}/`} class="block py-1.5 text-lg">
+                                {s.name}
+                              </a>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                  </div>
+                </details>
+              </li>
+            ) : (
+              <li>
+                <a href={item.href} class="block py-4 font-display text-3xl font-[680] tracking-tight" aria-current={isActive(item.href) ? 'page' : undefined}>
+                  {item.label}
+                </a>
+              </li>
+            ),
+          )
+        }
+        <li>
+          <a href="/contact/" class="block py-4 font-display text-3xl font-[680] tracking-tight">Contact</a>
+        </li>
+      </ul>
+      <div class="mt-auto grid gap-3 pt-8">
+        <a href={cta.href} class="btn btn-primary w-full">{cta.label}<Icon name="arrow-right" size={18} /></a>
+        <div class="grid grid-cols-2 gap-3">
+          <a href={site.phoneHref} class="btn btn-ghost w-full"><Icon name="phone" size={18} />Call</a>
+          {wa && <a href={wa} class="btn btn-ghost w-full" target="_blank" rel="noopener"><Icon name="whatsapp" size={18} />WhatsApp</a>}
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const setup = () => {
+    const header = document.getElementById('site-header');
+    const sentinel = document.getElementById('top-sentinel');
+    if (!header || header.dataset.ready) return;
+    header.dataset.ready = '1';
+
+    // Hairline under the header once the page has scrolled.
+    if (sentinel) {
+      new IntersectionObserver(([e]) => header.toggleAttribute('data-scrolled', !e.isIntersecting)).observe(sentinel);
+    }
+
+    // ---- Mega menu ----
+    const megaBtn = header.querySelector<HTMLButtonElement>('[data-mega-toggle]');
+    const mega = header.querySelector<HTMLElement>('[data-mega]');
+    const root = header.querySelector<HTMLElement>('[data-mega-root]');
+    let closeTimer: number | undefined;
+
+    const setMega = (open: boolean) => {
+      if (!megaBtn || !mega) return;
+      megaBtn.setAttribute('aria-expanded', String(open));
+      mega.toggleAttribute('data-open', open);
+    };
+
+    megaBtn?.addEventListener('click', () => setMega(megaBtn.getAttribute('aria-expanded') !== 'true'));
+
+    const finePointer = matchMedia('(hover: hover) and (pointer: fine)').matches;
+    if (finePointer && root && mega) {
+      const open = () => {
+        clearTimeout(closeTimer);
+        setMega(true);
+      };
+      const close = () => {
+        closeTimer = window.setTimeout(() => setMega(false), 180);
+      };
+      root.addEventListener('mouseenter', open);
+      root.addEventListener('mouseleave', close);
+      mega.addEventListener('mouseenter', open);
+      mega.addEventListener('mouseleave', close);
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== 'Escape') return;
+      if (megaBtn?.getAttribute('aria-expanded') === 'true') {
+        setMega(false);
+        megaBtn.focus();
+      }
+      if (menuBtn?.getAttribute('aria-expanded') === 'true') setMenu(false);
+    });
+
+    document.addEventListener('click', (e) => {
+      const t = e.target as Node;
+      if (mega?.hasAttribute('data-open') && !mega.contains(t) && !megaBtn?.contains(t)) setMega(false);
+    });
+
+    mega?.addEventListener('focusout', (e) => {
+      const next = (e as FocusEvent).relatedTarget as Node | null;
+      if (next && !mega.contains(next) && next !== megaBtn) setMega(false);
+    });
+
+    // ---- Mobile menu ----
+    const menuBtn = header.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+    const menu = header.querySelector<HTMLElement>('[data-menu]');
+    const label = header.querySelector<HTMLElement>('[data-menu-label]');
+
+    const setMenu = (open: boolean) => {
+      if (!menuBtn || !menu) return;
+      menuBtn.setAttribute('aria-expanded', String(open));
+      menu.toggleAttribute('data-open', open);
+      document.documentElement.style.overflow = open ? 'hidden' : '';
+      if (label) label.textContent = open ? 'Close' : 'Menu';
+      if (open) menu.querySelector<HTMLElement>('a, summary')?.focus();
+    };
+
+    menuBtn?.addEventListener('click', () => setMenu(menuBtn.getAttribute('aria-expanded') !== 'true'));
+    matchMedia('(min-width: 64rem)').addEventListener('change', (e) => e.matches && setMenu(false));
+  };
+
+  setup();
+</script>

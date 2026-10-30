@@ -1,0 +1,85 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import EnquiryForm from '../components/EnquiryForm.astro';
+import Media from '../components/Media.astro';
+import Icon from '../components/Icon.astro';
+import { site, addressLines, whatsappLink } from '../data/site';
+
+const wa = whatsappLink();
+const channels = [
+  { icon: 'phone' as const, label: 'Call', value: site.phone, href: site.phoneHref },
+  ...(wa ? [{ icon: 'whatsapp' as const, label: 'WhatsApp', value: 'Message us', href: wa, external: true }] : []),
+  { icon: 'mail' as const, label: 'Email', value: site.email, href: `mailto:${site.email}` },
+];
+---
+
+<Base
+  title="Contact Global Alpha Tech | Start a Project"
+  description="Tell us about your business and goals. Call +91 77038 82098, email info@globalalphatech.com or visit us in Laxmi Nagar, Delhi."
+  crumbs={[{ label: 'Contact' }]}
+>
+  <PageHero
+    crumbs={[{ label: 'Contact' }]}
+    label="Contact"
+    title="Tell us where"
+    light="you want to grow."
+    lead="Fill in the form and we will come back to arrange a short call. Prefer to talk now? Every channel below reaches the team."
+  />
+
+  <section class="wrap pb-20 md:pb-32">
+    <div class="grid gap-14 lg:grid-cols-12">
+      <div class="lg:col-span-7">
+        <div class="rounded-[1.5rem] border border-line p-6 md:p-10">
+          <h2 class="t-h3">Project enquiry</h2>
+          <p class="mt-2 mb-8 text-[0.95rem] text-muted">Takes about two minutes. Fields marked optional can be skipped.</p>
+          <EnquiryForm kind="contact" />
+        </div>
+      </div>
+
+      <aside class="flex flex-col gap-6 lg:col-span-4 lg:col-start-9" aria-label="Other ways to reach us">
+        <ul class="grid gap-3">
+          {
+            channels.map((c) => (
+              <li>
+                <a href={c.href} target={c.external ? '_blank' : undefined} rel={c.external ? 'noopener' : undefined} class="group flex items-center gap-4 rounded-2xl border border-line p-5 transition-colors hover:border-fg">
+                  <span class="grid size-12 shrink-0 place-items-center rounded-full bg-fg text-bg transition-colors group-hover:bg-alpha group-hover:text-white">
+                    <Icon name={c.icon} size={20} />
+                  </span>
+                  <span class="min-w-0 flex-1">
+                    <span class="t-label block text-muted">{c.label}</span>
+                    <span class="mt-0.5 block truncate font-[560]">{c.value}</span>
+                  </span>
+                  <Icon name="arrow-up-right" size={18} class="text-muted transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-fg" />
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+
+        <div class="rounded-2xl border border-line p-5">
+          <p class="t-label text-muted">Studio</p>
+          <address class="mt-2 text-lg not-italic">
+            {addressLines.map((l) => <span class="block">{l}</span>)}
+          </address>
+          {site.hours && <p class="mt-3 flex items-center gap-2 text-sm text-muted"><Icon name="clock" size={16} />{site.hours}</p>}
+          <a href={site.mapsUrl} target="_blank" rel="noopener" class="link-arrow mt-4 text-[0.95rem]">Get directions <Icon name="arrow-up-right" size={16} /></a>
+        </div>
+
+        <Media id="contact-office" alt="The entrance to the Global Alpha Tech office in Laxmi Nagar" ratio="4/3" class="rounded-2xl" sizes="(min-width: 1024px) 30vw, 100vw" />
+      </aside>
+    </div>
+  </section>
+
+  <section class="wrap pb-20 md:pb-28" aria-label="Map">
+    <div class="relative h-[22rem] overflow-hidden rounded-[1.5rem] border border-line bg-surface md:h-[28rem]">
+      <iframe
+        src={site.mapsEmbed}
+        title="Map showing the Global Alpha Tech office in Laxmi Nagar, Delhi"
+        class="absolute inset-0 h-full w-full grayscale-[0.6]"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+      ></iframe>
+    </div>
+  </section>
+</Base>

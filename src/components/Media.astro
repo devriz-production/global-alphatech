@@ -1,0 +1,94 @@
+---
+// A photograph or looping video, or a labelled placeholder while neither has been supplied.
+// `id` is the file name without extension: src/assets/photo/<id>.jpg and/or src/assets/video/<id>.mp4.
+// When both exist, the video plays and the photograph is its poster.
+import { Image, getImage } from 'astro:assets';
+import { findImage, findVideo } from '../lib/media';
+import { getSlot } from '../data/slots';
+
+interface Props {
+  id: string;
+  alt: string;
+  ratio?: string;
+  sizes?: string;
+  priority?: boolean;
+  class?: string;
+  imgClass?: string;
+  position?: string;
+  fill?: boolean;
+  video?: boolean;
+  ticks?: boolean;
+  quiet?: boolean; // background use: show nothing (not a labelled placeholder) until a file exists
+}
+
+const {
+  id,
+  alt,
+  ratio,
+  sizes = '(min-width: 1024px) 50vw, 100vw',
+  priority = false,
+  class: cls = '',
+  imgClass = '',
+  position = 'center',
+  fill = false,
+  video: allowVideo = true,
+  ticks = false,
+  quiet = false,
+} = Astro.props;
+
+const image = findImage(id);
+const clip = allowVideo ? findVideo(id) : undefined;
+const slot = getSlot(id);
+const widths = image ? [...new Set([480, 800, 1200, 1600, 2000, 2560, image.width].filter((w) => w <= image.width))] : [];
+const poster = clip && image ? (await getImage({ src: image, width: Math.min(1600, image.width), quality: 70 })).src : undefined;
+---
+
+<div
+  class:list={[fill ? 'absolute inset-0' : 'relative', 'overflow-hidden bg-surface', cls]}
+  style={ratio ? `aspect-ratio:${ratio}` : undefined}
+>
+  {
+    clip ? (
+      <video
+        class:list={['absolute inset-0 h-full w-full object-cover', imgClass]}
+        style={`object-position:${position}`}
+        autoplay
+        muted
+        loop
+        playsinline
+        preload={priority ? 'auto' : 'metadata'}
+        poster={poster}
+        aria-label={alt}
+        data-autoplay
+      >
+        {clip.webm && <source src={clip.webm} type="video/webm" />}
+        {clip.mp4 && <source src={clip.mp4} type="video/mp4" />}
+      </video>
+    ) : image ? (
+      <Image
+        src={image}
+        alt={alt}
+        widths={widths}
+        sizes={sizes}
+        quality={78}
+        loading={priority ? 'eager' : 'lazy'}
+        decoding={priority ? 'sync' : 'async'}
+        fetchpriority={priority ? 'high' : undefined}
+        class:list={['absolute inset-0 h-full w-full object-cover', imgClass]}
+        style={`object-position:${position}`}
+      />
+    ) : quiet ? null : (
+      <div class="slot" role="img" aria-label={alt}>
+        <span class="mb-1 opacity-70">{slot?.video?.required ? 'video' : 'image'} slot</span>
+        <b>{id}</b>
+        {slot && (
+          <span>
+            {slot.w} x {slot.h}
+          </span>
+        )}
+      </div>
+    )
+  }
+  {ticks && <span class="ticks text-white/80" />}
+  <slot />
+</div>

@@ -1,0 +1,342 @@
+---
+import Base from '../layouts/Base.astro';
+import Media from '../components/Media.astro';
+import Icon from '../components/Icon.astro';
+import Mark from '../components/Mark.astro';
+import SectionHead from '../components/SectionHead.astro';
+import ServiceIndex from '../components/ServiceIndex.astro';
+import WorkCard from '../components/WorkCard.astro';
+import Testimonials from '../components/Testimonials.astro';
+import Faq from '../components/Faq.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { site, cta } from '../data/site';
+import { services } from '../data/services';
+import { reasons, process, industries } from '../data/company';
+import { projects } from '../data/work';
+import { faqs } from '../data/faqs';
+
+const words = ['clinics', 'schools', 'startups', 'gyms', 'brands', 'studios', 'retailers'];
+const quick = ['seo-services', 'performance-marketing', 'website-development', 'social-media-marketing', 'app-development', 'branding-graphic-design'];
+const featured = projects.slice(0, 4);
+const layout = [
+  { col: 'md:col-span-7', ratio: '4/3' },
+  { col: 'md:col-span-5 md:mt-24', ratio: '4/5' },
+  { col: 'md:col-span-5', ratio: '4/5' },
+  { col: 'md:col-span-7 md:mt-24', ratio: '4/3' },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+};
+---
+
+<Base
+  title="Global Alpha Tech | Digital Marketing, SEO and Website Development in Delhi"
+  description="Global Alpha Tech is a digital growth studio in Laxmi Nagar, Delhi. One team for SEO, Google and Meta ads, websites, apps, social media and branding, measured on enquiries and sales."
+  schema={faqSchema}
+>
+  <!-- Hero -->
+  <section class="wrap pt-10 pb-14 md:pt-16 md:pb-20">
+    <div class="mb-10 flex flex-wrap items-center justify-between gap-4 md:mb-14">
+      <p class="flex items-center gap-3 font-mono text-xs tracking-wide text-muted uppercase" data-reveal>
+        <span class="live-dot"></span>
+        Digital growth studio, Laxmi Nagar, Delhi
+      </p>
+      <p class="hidden font-mono text-xs tracking-wide text-muted uppercase md:block" data-reveal style="--d:80ms">
+        Strategy / Design / Engineering / Performance
+      </p>
+    </div>
+
+    <h1 class="hero-title">
+      <span class="sr-only">We grow clinics, schools, startups and local businesses online.</span>
+      <span aria-hidden="true" class="block" data-lines>
+        <span class="line"><span>We grow</span></span>
+        <span class="line pl-[7%] md:pl-[21%]">
+          <span class="block" style="--d:90ms">
+            <span class="cycler light text-accent-text" data-cycler data-words={JSON.stringify(words)}>
+              <span class="cycler-word is-current">{words[0]}</span>
+            </span>
+          </span>
+        </span>
+        <span class="line text-right"><span style="--d:180ms">online.</span></span>
+      </span>
+    </h1>
+
+    <div class="mt-12 grid gap-10 md:mt-16 lg:grid-cols-12">
+      <div class="lg:col-span-6" data-reveal style="--d:250ms">
+        <p class="t-lead max-w-xl text-muted">
+          <strong class="font-[560] text-fg">{site.name}</strong> plans, builds and runs the digital side of your business: websites and apps, search, ads, social and brand. One team, one plan, and reports in rupees, not likes.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href={cta.href} class="btn btn-primary">{cta.label}<Icon name="arrow-right" size={18} /></a>
+          <a href="/services/" class="btn btn-ghost">Explore services</a>
+        </div>
+      </div>
+      <nav class="lg:col-span-5 lg:col-start-8" aria-label="Popular services" data-reveal style="--d:320ms">
+        <p class="t-label text-muted">Popular right now</p>
+        <ul class="mt-4 grid grid-cols-1 border-t border-line sm:grid-cols-2 sm:gap-x-8 lg:grid-cols-1 xl:grid-cols-2">
+          {
+            quick.map((slug) => {
+              const s = services.find((x) => x.slug === slug)!;
+              return (
+                <li class="border-b border-line">
+                  <a href={`/services/${s.slug}/`} class="group flex items-center justify-between gap-3 py-3.5 font-[540]">
+                    {s.short.charAt(0).toUpperCase() + s.short.slice(1)}
+                    <Icon name="arrow-up-right" size={16} class="text-muted transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent-text" />
+                  </a>
+                </li>
+              );
+            })
+          }
+        </ul>
+      </nav>
+    </div>
+  </section>
+
+  <!-- Reel -->
+  <section class="wrap" aria-label="Studio reel">
+    <div class="grow-in relative overflow-hidden rounded-[1.25rem]">
+      <Media id="home-hero-reel" alt="Paper blocks rising like a skyline, swept by a band of violet light" class="aspect-[4/5] sm:aspect-[16/9] lg:aspect-[21/9]" sizes="100vw" priority ticks />
+      <div class="pointer-events-none absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-6 text-white md:p-9">
+        <p class="font-display text-xl leading-tight font-[600] tracking-tight [text-shadow:0_1px_20px_rgb(0_0_0/0.35)] md:text-3xl">
+          Measured on enquiries,<br /><span class="light">not impressions.</span>
+        </p>
+        <p class="hidden items-center gap-2 rounded-full bg-white/12 px-3.5 py-2 font-mono text-[0.7rem] tracking-wide uppercase backdrop-blur-sm sm:flex">
+          <span class="live-dot"></span> Open for new projects
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Marquee -->
+  <div class="marquee mt-16 border-y border-line py-6 md:mt-24 md:py-8" aria-hidden="true">
+    <div class="marquee-track" style="--speed:60s">
+      {
+        [0, 1].map(() => (
+          <div class="flex shrink-0 items-center">
+            {services.map((s) => (
+              <span class="flex items-center">
+                <span class="px-6 font-display text-[clamp(2rem,5vw,4.25rem)] leading-none font-[680] tracking-[-0.035em] whitespace-nowrap md:px-10" style="font-stretch:88%">
+                  {s.short.charAt(0).toUpperCase() + s.short.slice(1)}
+                </span>
+                <Mark size={36} class="text-muted" />
+              </span>
+            ))}
+          </div>
+        ))
+      }
+    </div>
+  </div>
+
+  <!-- Statement -->
+  <section class="wrap section-y">
+    <div class="grid gap-12 lg:grid-cols-12 lg:gap-10">
+      <div class="lg:col-span-8">
+        <p class="kicker mb-8" data-reveal>The studio</p>
+        <p class="font-display text-[clamp(1.75rem,3.5vw,3.15rem)] leading-[1.12] font-[460] tracking-[-0.03em]" data-reveal>
+          We are strategists, designers, developers and marketers in one Delhi studio. <span class="text-muted">So your website, search rankings, ads and content stop working against each other and start pulling in one direction:</span> towards customers.
+        </p>
+        <div class="mt-10 flex flex-wrap gap-x-10 gap-y-6" data-reveal style="--d:120ms">
+          <div>
+            <p class="font-display text-4xl font-[700] tracking-tight">{services.length}</p>
+            <p class="mt-1 text-sm text-muted">services, one team</p>
+          </div>
+          <div>
+            <p class="font-display text-4xl font-[700] tracking-tight">1</p>
+            <p class="mt-1 text-sm text-muted">point of contact for you</p>
+          </div>
+          <div>
+            <p class="font-display text-4xl font-[700] tracking-tight">100%</p>
+            <p class="mt-1 text-sm text-muted">of accounts in your name</p>
+          </div>
+        </div>
+      </div>
+      <div class="lg:col-span-4" data-reveal style="--d:150ms">
+        <Media id="studio-team" alt="The Global Alpha Tech team at work in the studio" class="aspect-[4/5] rounded-[1.25rem]" sizes="(min-width: 1024px) 33vw, 100vw" />
+        <a href="/about/" class="link-arrow mt-5">About the studio <Icon name="arrow-up-right" size={18} /></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="wrap section-y pt-0" aria-labelledby="services-title">
+    <SectionHead index="01" label="Services" title="Everything online," light="from one team." intro="Pick one service or let us combine them into a plan. Hover a service to preview it, or open it for the full scope." link={{ label: 'All services', href: '/services/' }} />
+    <div class="mt-14 md:mt-20">
+      <ServiceIndex />
+    </div>
+  </section>
+
+  <!-- Why -->
+  <section class="theme-night section-y relative overflow-hidden" aria-label="Why Global Alpha Tech">
+    <Mark size={640} quiet class="pointer-events-none absolute -top-40 -right-40 text-white/[0.04]" />
+    <div class="wrap relative">
+      <SectionHead index="02" label="Why Global Alpha Tech" title="Built for revenue," light="not for reports." intro="Plenty of agencies can post, design or run ads. Fewer will tie that work to the money it makes you and show you the numbers every month." />
+      <ol class="mt-16 grid gap-px overflow-hidden rounded-[1.25rem] bg-line md:mt-20 md:grid-cols-2 lg:grid-cols-3">
+        {
+          reasons.map((r, i) => (
+            <li class="flex min-h-[15rem] flex-col justify-between gap-10 bg-bg p-7 md:p-9" data-reveal style={`--d:${(i % 3) * 90}ms`}>
+              <span class="font-mono text-xs text-alpha-light">{String(i + 1).padStart(2, '0')}</span>
+              <div>
+                <h3 class="t-h4 md:text-[1.4rem]">{r.title}</h3>
+                <p class="mt-3 text-[0.95rem] text-muted">{r.text}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="wrap section-y" aria-label="How we work">
+    <SectionHead index="03" label="How we work" title="Four steps." light="No surprises." intro="Every engagement follows the same rhythm, whether it is a landing page or a year of growth marketing." link={{ label: 'Plans and pricing', href: '/pricing/' }} />
+    <ol class="mt-16 grid gap-10 md:mt-20 md:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+      {
+        process.map((step, i) => (
+          <li class="group relative pt-8" data-reveal style={`--d:${i * 110}ms`}>
+            <span class="absolute top-0 left-0 h-px w-full bg-line-strong" />
+            <span class="absolute top-0 left-0 h-px w-full origin-left scale-x-0 bg-alpha transition-transform duration-[1.4s] ease-[var(--ease)] [.is-in>&]:scale-x-100" style={`transition-delay:${300 + i * 200}ms`} />
+            <span class="absolute -top-[5px] left-0 size-[11px] rounded-full border-2 border-bg bg-alpha" />
+            <p class="font-display text-6xl leading-none font-[220] tracking-[-0.04em] text-muted">{String(i + 1).padStart(2, '0')}</p>
+            <h3 class="t-h3 mt-6">{step.title}</h3>
+            <p class="mt-3 text-[0.95rem] text-muted">{step.text}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <!-- Work -->
+  <section class="wrap section-y pt-0" aria-label="Selected work">
+    <SectionHead index="04" label="Selected work" title="Real businesses," light="real results." intro="A few of the projects our clients have described in their own words." link={{ label: 'See all work', href: '/work/' }} />
+    <div class="mt-14 grid gap-x-8 gap-y-16 md:mt-20 md:grid-cols-12">
+      {featured.map((p, i) => <WorkCard project={p} ratio={layout[i].ratio} class={layout[i].col} sizes="(min-width: 768px) 55vw, 100vw" />)}
+    </div>
+  </section>
+
+  <!-- Industries -->
+  <section class="border-y border-line bg-surface section-y-sm" aria-label="Industries">
+    <div class="wrap grid gap-8 lg:grid-cols-12">
+      <p class="kicker lg:col-span-3"><b>05</b>Who we work with</p>
+      <ul class="flex flex-wrap gap-x-4 gap-y-2 lg:col-span-9">
+        {
+          industries.map((name, i) => (
+            <li class="flex items-center gap-4 font-display text-[clamp(1.5rem,3vw,2.6rem)] leading-tight font-[600] tracking-[-0.03em]" data-reveal style={`--d:${i * 50}ms`}>
+              {name}
+              {i < industries.length - 1 && <span class="font-[200] text-muted">/</span>}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <Testimonials index="06" />
+
+  <!-- FAQ -->
+  <section class="wrap section-y pt-0" aria-labelledby="faq-title">
+    <div class="grid gap-12 lg:grid-cols-12">
+      <div class="lg:col-span-4">
+        <div class="lg:sticky lg:top-[calc(var(--header-h)+2rem)]">
+          <p class="kicker mb-6" data-reveal><b>07</b>Questions</p>
+          <h2 id="faq-title" class="t-h2" data-lines>
+            <span class="line"><span>Good questions,</span></span>
+            <span class="line"><span class="light" style="--d:100ms">straight answers.</span></span>
+          </h2>
+          <p class="mt-6 max-w-sm text-muted" data-reveal>
+            Something else on your mind? Call <a href={site.phoneHref} class="link-u text-fg">{site.phone}</a> or <a href="/contact/" class="link-u text-fg">send us a message</a>.
+          </p>
+        </div>
+      </div>
+      <div class="lg:col-span-8">
+        <Faq items={faqs} />
+      </div>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>
+
+<style>
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(3.4rem, 12.6vw, 13.5rem);
+    line-height: 0.88;
+    letter-spacing: -0.05em;
+    font-weight: 760;
+    font-stretch: 84%;
+  }
+
+  /* Room for descenders (g, p) inside the masked lines. */
+  .hero-title :global(.line) {
+    padding-bottom: 0.16em !important;
+    margin-bottom: -0.16em !important;
+  }
+
+  .cycler {
+    display: grid;
+    overflow: hidden;
+    padding-bottom: 0.16em;
+    margin-bottom: -0.16em;
+  }
+
+  .cycler :global(.cycler-word) {
+    grid-area: 1 / 1;
+    justify-self: start;
+    white-space: nowrap;
+    transform: translateY(150%);
+    transition: transform 0.9s var(--ease);
+  }
+
+  .cycler :global(.cycler-word.is-current) {
+    transform: none;
+  }
+
+  .cycler :global(.cycler-word.is-leaving) {
+    transform: translateY(-150%);
+  }
+</style>
+
+<script>
+  const el = document.querySelector<HTMLElement>('[data-cycler]');
+  if (el && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const words: string[] = JSON.parse(el.dataset.words || '[]');
+    el.innerHTML = '';
+    const spans = words.map((w, i) => {
+      const s = document.createElement('span');
+      s.className = 'cycler-word' + (i === 0 ? ' is-current' : '');
+      s.textContent = w;
+      el.appendChild(s);
+      return s;
+    });
+    let i = 0;
+    let timer = 0;
+    const step = () => {
+      const prev = spans[i];
+      i = (i + 1) % spans.length;
+      const next = spans[i];
+      prev.classList.remove('is-current');
+      prev.classList.add('is-leaving');
+      next.classList.remove('is-leaving');
+      next.style.transition = 'none';
+      next.style.transform = 'translateY(150%)';
+      next.offsetHeight;
+      next.style.transition = '';
+      next.style.transform = '';
+      next.classList.add('is-current');
+      // Park the old word below the line again without animating it back through view.
+      window.setTimeout(() => {
+        prev.style.transition = 'none';
+        prev.classList.remove('is-leaving');
+      }, 950);
+    };
+    const start = () => (timer = window.setInterval(step, 2400));
+    start();
+    document.addEventListener('visibilitychange', () => {
+      clearInterval(timer);
+      if (!document.hidden) start();
+    });
+  }
+</script>

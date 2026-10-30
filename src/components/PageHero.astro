@@ -1,0 +1,69 @@
+---
+// Header block for inner pages: breadcrumb trail, label, two weight headline and intro.
+interface Crumb {
+  label: string;
+  href?: string;
+}
+interface Props {
+  crumbs?: Crumb[];
+  label?: string;
+  title: string;
+  light?: string;
+  lead?: string;
+  class?: string;
+}
+const { crumbs = [], label, title, light, lead, class: cls = '' } = Astro.props;
+---
+
+<section class:list={['wrap pt-8 pb-12 md:pt-14 md:pb-20', cls]}>
+  {
+    crumbs.length > 0 && (
+      <nav aria-label="Breadcrumb" class="mb-10 md:mb-16">
+        <ol class="flex flex-wrap items-center gap-x-2 gap-y-1 font-mono text-xs tracking-wide text-muted uppercase">
+          <li>
+            <a href="/" class="link-u">Home</a>
+          </li>
+          {crumbs.map((c) => (
+            <li class="flex items-center gap-2">
+              <span aria-hidden="true" class="opacity-50">/</span>
+              {c.href ? (
+                <a href={c.href} class="link-u">
+                  {c.label}
+                </a>
+              ) : (
+                <span aria-current="page" class="text-fg">
+                  {c.label}
+                </span>
+              )}
+            </li>
+          ))}
+        </ol>
+      </nav>
+    )
+  }
+  <div class="grid gap-8 lg:grid-cols-12 lg:items-end">
+    <div class="lg:col-span-9">
+      {label && <p class="kicker mb-6">{label}</p>}
+      <h1 class="t-h1" data-lines>
+        <span class="line"><span>{title}</span></span>
+        {
+          light && (
+            <span class="line">
+              <span class="light" style="--d:120ms">
+                {light}
+              </span>
+            </span>
+          )
+        }
+      </h1>
+    </div>
+    {
+      lead && (
+        <p class="t-lead text-muted lg:col-span-3 lg:pb-2" data-reveal style="--d:200ms">
+          {lead}
+        </p>
+      )
+    }
+  </div>
+  <slot />
+</section>

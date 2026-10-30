@@ -1,0 +1,82 @@
+---
+import Icon from './Icon.astro';
+import Mark from './Mark.astro';
+import { site, nav, addressLines, whatsappLink } from '../data/site';
+import { services } from '../data/services';
+
+const year = new Date().getFullYear();
+const wa = whatsappLink();
+const company = [...nav.filter((n) => n.href !== '/services/'), { label: 'Contact', href: '/contact/' }];
+---
+
+<footer class="theme-night relative overflow-hidden pt-20 md:pt-28">
+  <div class="wrap">
+    <div class="grid gap-14 md:grid-cols-12 md:gap-8">
+      <div class="md:col-span-4">
+        <p class="font-display text-3xl leading-[1.05] font-[700] tracking-[-0.03em] md:text-4xl">
+          Have a project in mind?<br />
+          <span class="light text-muted">Let us talk it through.</span>
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/contact/" class="btn btn-alpha">Start a project<Icon name="arrow-right" size={18} /></a>
+          {wa && <a href={wa} target="_blank" rel="noopener" class="btn btn-ghost"><Icon name="whatsapp" size={18} />WhatsApp</a>}
+        </div>
+      </div>
+
+      <nav class="md:col-span-3 md:col-start-6" aria-label="Services">
+        <p class="t-label text-muted">Services</p>
+        <ul class="mt-5 grid gap-2.5">
+          {services.map((s) => <li><a href={`/services/${s.slug}/`} class="link-u text-[0.95rem]">{s.name}</a></li>)}
+        </ul>
+      </nav>
+
+      <nav class="md:col-span-2" aria-label="Company">
+        <p class="t-label text-muted">Company</p>
+        <ul class="mt-5 grid gap-2.5">
+          {company.map((n) => <li><a href={n.href} class="link-u text-[0.95rem]">{n.label}</a></li>)}
+        </ul>
+      </nav>
+
+      <div class="md:col-span-2">
+        <p class="t-label text-muted">Studio</p>
+        <address class="mt-5 grid gap-3 text-[0.95rem] not-italic">
+          <a href={site.phoneHref} class="link-u w-fit tabular-nums">{site.phone}</a>
+          <a href={`mailto:${site.email}`} class="link-u w-fit break-all">{site.email}</a>
+          <a href={site.mapsUrl} target="_blank" rel="noopener" class="text-muted transition-colors hover:text-fg">
+            {addressLines.map((l) => <span class="block">{l}</span>)}
+          </a>
+        </address>
+        {
+          site.social.length > 0 && (
+            <ul class="mt-6 flex gap-2">
+              {site.social.map((s) => (
+                <li>
+                  <a href={s.href} target="_blank" rel="noopener" class="grid size-10 place-items-center rounded-full border border-line-strong transition-colors hover:border-fg hover:bg-fg hover:text-bg" aria-label={`${s.label} (opens in a new tab)`}>
+                    <Icon name={s.icon} size={18} />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          )
+        }
+      </div>
+    </div>
+
+    <div class="mt-20 flex flex-col gap-4 border-t border-line py-6 text-sm text-muted md:flex-row md:items-center md:justify-between">
+      <p>&copy; {year} {site.legalName} All rights reserved.</p>
+      <ul class="flex flex-wrap gap-x-6 gap-y-2">
+        <li><a href="/privacy-policy/" class="link-u">Privacy policy</a></li>
+        <li><a href="/terms/" class="link-u">Terms of use</a></li>
+        <li><a href="/sitemap-index.xml" class="link-u">Sitemap</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Oversized wordmark, cropped by the bottom edge. -->
+  <div class="wrap pointer-events-none select-none" aria-hidden="true">
+    <div class="flex items-end gap-[2vw] leading-[0.72] text-fg/[0.07]">
+      <Mark size={140} quiet class="mb-[1.2vw] hidden w-[11vw] max-w-[150px] shrink-0 sm:block" />
+      <span class="font-display text-[clamp(4rem,17.5vw,17rem)] font-[800] tracking-[-0.06em]" style="font-stretch:80%">Global<span class="font-[220] tracking-[-0.04em]">alpha</span></span>
+    </div>
+  </div>
+</footer>

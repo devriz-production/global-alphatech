@@ -1,0 +1,156 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Icon from '../components/Icon.astro';
+import Faq from '../components/Faq.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { models, quoteContains, priceFactors } from '../data/pricing';
+import { getService } from '../data/services';
+import { cta } from '../data/site';
+
+const faqs = [
+  {
+    q: 'Is ad spend included in your fee?',
+    a: 'No. Money spent on Google, Meta or other platforms is paid by you directly to the platform, from accounts in your name. Our fee covers the work. Keeping the two apart means you always see exactly what the ads cost.',
+  },
+  {
+    q: 'Can I start with one service?',
+    a: 'Yes, and many clients do. Starting with the service that solves your most urgent problem, then adding others once it is working, is often the smartest route.',
+  },
+  {
+    q: 'How do payments work?',
+    a: 'Payment terms are written into every quote. Projects are usually billed in stages tied to milestones, and retainers are billed monthly.',
+  },
+  {
+    q: 'Do your prices include GST?',
+    a: 'Quotes show GST separately wherever it applies, so the total you see is the total you pay.',
+  },
+  {
+    q: 'What happens if the scope changes?',
+    a: 'We tell you before doing any extra work, explain the cost and timing, and only go ahead once you agree in writing.',
+  },
+];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+};
+---
+
+<Base
+  title="Pricing and Ways to Work With Us"
+  description="Fixed price projects, monthly growth retainers and advisory. Every Global Alpha Tech engagement starts with a written quote, with ad spend kept separate from our fee."
+  crumbs={[{ label: 'Pricing' }]}
+  schema={schema}
+>
+  <PageHero
+    crumbs={[{ label: 'Pricing' }]}
+    label="Pricing"
+    title="Clear scope."
+    light="Fixed fees."
+    lead="Three ways to work with us. Each one starts with a written quote, so you know the cost before any work begins."
+  />
+
+  <section class="wrap pb-20 md:pb-32" aria-label="Engagement models">
+    <ul class="grid gap-5 lg:grid-cols-3">
+      {
+        models.map((m, i) => (
+          <li class:list={['flex flex-col rounded-[1.5rem] border p-8 md:p-10', m.featured ? 'theme-night border-transparent' : 'border-line']} data-reveal style={`--d:${i * 100}ms`}>
+            <div class="flex items-center justify-between gap-4">
+              <p class="t-label text-accent-text">{String(i + 1).padStart(2, '0')}</p>
+              {m.featured && <span class="rounded-full bg-alpha px-3 py-1 font-mono text-[0.68rem] tracking-wide text-white uppercase">Recommended</span>}
+            </div>
+            <h2 class="t-h2 mt-8">{m.name}</h2>
+            <p class="mt-2 text-lg">{m.line}</p>
+            <p class="mt-8 border-t border-line pt-6">
+              <span class="block t-label text-muted">Starting from</span>
+              <span class="mt-2 block font-display text-3xl font-[680] tracking-tight">{m.from || 'Quote on request'}</span>
+            </p>
+            <p class="mt-6 text-[0.95rem] text-muted">
+              <span class="font-[600] text-fg">Best for:</span> {m.bestFor}
+            </p>
+            <ul class="mt-6 grid gap-3">
+              {m.includes.map((inc) => (
+                <li class="flex gap-3 text-[0.95rem]">
+                  <Icon name="check" size={18} class="mt-0.5 text-accent-text" />
+                  {inc}
+                </li>
+              ))}
+            </ul>
+            <div class="mt-8 flex flex-wrap gap-2">
+              {m.services.map((slug) => {
+                const s = getService(slug)!;
+                return (
+                  <a href={`/services/${s.slug}/`} class="chip transition-colors hover:border-fg hover:text-fg">
+                    {s.short.charAt(0).toUpperCase() + s.short.slice(1)}
+                  </a>
+                );
+              })}
+            </div>
+            <div class="mt-auto pt-10">
+              <a href={`${cta.href}?plan=${m.id}`} class:list={['btn w-full', m.featured ? 'btn-alpha' : 'btn-primary']}>
+                Ask for a quote
+                <Icon name="arrow-right" size={18} />
+              </a>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="border-y border-line bg-surface section-y" aria-label="What a quote contains">
+    <div class="wrap grid gap-14 lg:grid-cols-12">
+      <div class="lg:col-span-5">
+        <p class="kicker mb-6" data-reveal>In writing</p>
+        <h2 class="t-h2" data-lines>
+          <span class="line"><span>Every quote</span></span>
+          <span class="line"><span class="light" style="--d:100ms">spells out...</span></span>
+        </h2>
+        <ul class="mt-10 grid">
+          {
+            quoteContains.map((q, i) => (
+              <li class="flex items-center gap-4 border-t border-line py-4 text-lg last:border-b" data-reveal style={`--d:${i * 70}ms`}>
+                <span class="grid size-7 shrink-0 place-items-center rounded-full bg-fg text-bg">
+                  <Icon name="check" size={14} />
+                </span>
+                {q}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <div class="lg:col-span-6 lg:col-start-7">
+        <p class="kicker mb-6" data-reveal>What affects the price</p>
+        <ul class="grid gap-px overflow-hidden rounded-[1.25rem] border border-line bg-line sm:grid-cols-2">
+          {
+            priceFactors.map((f, i) => (
+              <li class="bg-bg p-7" data-reveal style={`--d:${i * 80}ms`}>
+                <h3 class="t-h4">{f.title}</h3>
+                <p class="mt-2 text-[0.95rem] text-muted">{f.text}</p>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap section-y" aria-labelledby="pricing-faq">
+    <div class="grid gap-12 lg:grid-cols-12">
+      <div class="lg:col-span-4">
+        <p class="kicker mb-6" data-reveal>Questions</p>
+        <h2 id="pricing-faq" class="t-h2" data-lines>
+          <span class="line"><span>Money matters,</span></span>
+          <span class="line"><span class="light" style="--d:100ms">answered.</span></span>
+        </h2>
+      </div>
+      <div class="lg:col-span-8">
+        <Faq items={faqs} />
+      </div>
+    </div>
+  </section>
+
+  <CtaBand title="Want a number?" light="Ask for a quote." text="Tell us what you need and roughly when. We will come back with questions, then a written quote with a fixed fee." />
+</Base>

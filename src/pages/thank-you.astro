@@ -1,0 +1,23 @@
+---
+// Where the form handler sends people whose browser posted the form without JavaScript.
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import Mark from '../components/Mark.astro';
+import { site } from '../data/site';
+---
+
+<Base title="Thank you" description="Thank you for getting in touch with Global Alpha Tech. Your message has reached the team and we will reply soon." noindex>
+  <section class="wrap grid min-h-[70vh] place-items-center py-24 text-center">
+    <div class="max-w-2xl">
+      <Mark size={72} spin class="mx-auto" />
+      <h1 class="t-h1 mt-10">Thank you.<br /><span class="light">Your message is with us.</span></h1>
+      <p class="t-lead mx-auto mt-6 max-w-lg text-muted">
+        A member of the team will reply shortly. If it is urgent, call <a href={site.phoneHref} class="link-u text-fg">{site.phone}</a>.
+      </p>
+      <div class="mt-10 flex flex-wrap justify-center gap-3">
+        <a href="/" class="btn btn-primary">Back to home<Icon name="arrow-right" size={18} /></a>
+        <a href="/insights/" class="btn btn-ghost">Read our insights</a>
+      </div>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,168 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Media from '../components/Media.astro';
+import SectionHead from '../components/SectionHead.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Icon from '../components/Icon.astro';
+import Mark from '../components/Mark.astro';
+import { site, addressLines } from '../data/site';
+import { commitments, disciplines, vision, reasons } from '../data/company';
+---
+
+<Base
+  title="About Global Alpha Tech, a Digital Growth Studio in Delhi"
+  description="Global Alpha Tech is a team of strategists, designers, developers and marketers in Laxmi Nagar, Delhi, helping businesses grow online with measurable digital work."
+  crumbs={[{ label: 'About' }]}
+>
+  <PageHero
+    crumbs={[{ label: 'About' }]}
+    label="About the studio"
+    title="Long term partners,"
+    light="not another vendor."
+    lead="We are a Delhi team that brings creativity and technology together so businesses of every size can compete online."
+  />
+
+  <section class="wrap" aria-label="Studio">
+    <div class="grow-in relative overflow-hidden rounded-[1.25rem]">
+      <Media id="about-hero" alt="East Delhi at dusk, with a metro line curving through the city" class="aspect-[4/5] sm:aspect-[16/9] lg:aspect-[21/9]" sizes="100vw" priority ticks />
+    </div>
+  </section>
+
+  <!-- Story -->
+  <section class="wrap section-y" aria-label="Who we are">
+    <div class="grid gap-12 lg:grid-cols-12">
+      <div class="lg:col-span-7">
+        <p class="kicker mb-8" data-reveal><b>01</b>Who we are</p>
+        <p class="font-display text-[clamp(1.6rem,3vw,2.7rem)] leading-[1.15] font-[460] tracking-[-0.03em]" data-reveal>
+          {site.name} is more than a digital solutions company. We are your long term growth partner, <span class="text-muted">specialising in digital marketing, SEO, web design and development, branding and AI assisted solutions.</span>
+        </p>
+        <div class="prose-body mt-10 grid max-w-2xl gap-5 text-[1.0625rem] md:grid-cols-2 md:gap-8" data-reveal style="--d:120ms">
+          <p>
+            We believe a clinic in East Delhi or a school down the road deserves the same quality of digital work as a national brand. <strong>Our team brings together strategists, designers, developers and marketing specialists</strong> who share one goal.
+          </p>
+          <p>
+            That goal is to help businesses scale with smart, measurable and genuinely useful digital work. We would rather tell you what will not work than sell it to you, and we judge ourselves on your results, not on our awards.
+          </p>
+        </div>
+      </div>
+      <div class="lg:col-span-4 lg:col-start-9" data-reveal style="--d:150ms">
+        <Media id="studio-detail" alt="A detail from the Global Alpha Tech studio" ratio="4/5" class="rounded-[1.25rem]" sizes="(min-width: 1024px) 30vw, 100vw" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Vision and mission -->
+  <section class="theme-night section-y relative overflow-hidden" aria-label="Vision and mission">
+    <Mark size={720} quiet class="pointer-events-none absolute -bottom-64 -left-56 text-white/[0.035]" />
+    <div class="wrap relative grid gap-6 lg:grid-cols-2">
+      <article class="rounded-[1.5rem] border border-line p-8 md:p-12" data-reveal>
+        <p class="t-label text-alpha-light">Our vision</p>
+        <p class="mt-6 font-display text-[clamp(1.4rem,2.2vw,1.95rem)] leading-[1.25] font-[420] tracking-[-0.02em]">{vision}</p>
+      </article>
+      <article class="rounded-[1.5rem] border border-line p-8 md:p-12" data-reveal style="--d:120ms">
+        <p class="t-label text-alpha-light">Our mission</p>
+        <p class="mt-6 font-display text-[clamp(1.4rem,2.2vw,1.95rem)] leading-[1.25] font-[420] tracking-[-0.02em]">
+          To create digital experiences that drive real business growth, and to stay accountable for that growth every month.
+        </p>
+        <ol class="mt-10 grid gap-0">
+          {
+            commitments.map((c, i) => (
+              <li class="grid grid-cols-[2rem_1fr] gap-3 border-t border-line py-4">
+                <span class="font-mono text-xs text-muted">{String(i + 1).padStart(2, '0')}</span>
+                <span>
+                  <span class="font-[600]">{c.title}.</span> <span class="text-muted">{c.text}</span>
+                </span>
+              </li>
+            ))
+          }
+        </ol>
+      </article>
+    </div>
+  </section>
+
+  <!-- Disciplines -->
+  <section class="wrap section-y" aria-label="The team">
+    <SectionHead index="02" label="The team" title="Five disciplines," light="one table." intro="Your project is planned and delivered by people from each of these teams, working together from day one." />
+    <ol class="mt-14 grid gap-px overflow-hidden rounded-[1.25rem] border border-line bg-line sm:grid-cols-2 md:mt-20 lg:grid-cols-5">
+      {
+        disciplines.map((d, i) => (
+          <li class="flex min-h-[15rem] flex-col justify-between gap-8 bg-bg p-7" data-reveal style={`--d:${i * 80}ms`}>
+            <span class="font-mono text-xs text-accent-text">{String(i + 1).padStart(2, '0')}</span>
+            <div>
+              <h3 class="t-h4 md:text-[1.35rem]">{d.title}</h3>
+              <p class="mt-3 text-[0.95rem] text-muted">{d.text}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <!-- How we are different -->
+  <section class="border-y border-line bg-surface section-y" aria-label="How we work with clients">
+    <div class="wrap grid gap-12 lg:grid-cols-12">
+      <div class="lg:col-span-4">
+        <p class="kicker mb-6" data-reveal><b>03</b>Working with us</p>
+        <h2 class="t-h2" data-lines>
+          <span class="line"><span>What you can</span></span>
+          <span class="line"><span class="light" style="--d:100ms">hold us to.</span></span>
+        </h2>
+      </div>
+      <ul class="grid gap-x-10 sm:grid-cols-2 lg:col-span-8">
+        {
+          reasons.map((r, i) => (
+            <li class="border-t border-line-strong py-6" data-reveal style={`--d:${(i % 2) * 90}ms`}>
+              <h3 class="t-h4">{r.title}</h3>
+              <p class="mt-2 text-[0.95rem] text-muted">{r.text}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  {
+    site.credentials.length > 0 && (
+      <section class="wrap section-y-sm" aria-label="Credentials">
+        <p class="t-label text-muted">Credentials</p>
+        <ul class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {site.credentials.map((c) => (
+            <li class="rounded-2xl border border-line p-6">
+              <p class="t-h4">{c.label}</p>
+              <p class="mt-1 text-sm text-muted">{c.detail}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )
+  }
+
+  <!-- Visit -->
+  <section class="wrap section-y" aria-label="Visit the studio">
+    <div class="grid gap-12 lg:grid-cols-12">
+      <div class="lg:col-span-7" data-reveal>
+        <Media id="studio-team" alt="The Global Alpha Tech team at work in the studio" ratio="3/2" class="rounded-[1.25rem]" sizes="(min-width: 1024px) 55vw, 100vw" />
+      </div>
+      <div class="flex flex-col justify-between gap-10 lg:col-span-4 lg:col-start-9">
+        <div>
+          <p class="kicker mb-6" data-reveal><b>04</b>Visit</p>
+          <h2 class="t-h2" data-lines>
+            <span class="line"><span>Come and</span></span>
+            <span class="line"><span class="light" style="--d:100ms">meet the team.</span></span>
+          </h2>
+          <address class="mt-8 text-lg not-italic" data-reveal>
+            {addressLines.map((l) => <span class="block">{l}</span>)}
+          </address>
+          <p class="mt-3 text-muted" data-reveal>Let us know before you come, so the right people are in the room.</p>
+        </div>
+        <div class="flex flex-wrap gap-3" data-reveal>
+          <a href="/contact/" class="btn btn-primary">Book a visit<Icon name="arrow-right" size={18} /></a>
+          <a href={site.mapsUrl} target="_blank" rel="noopener" class="btn btn-ghost"><Icon name="pin" size={18} />Directions</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>

@@ -1,0 +1,79 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import WorkCard from '../components/WorkCard.astro';
+import Testimonials from '../components/Testimonials.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { projects } from '../data/work';
+import { getService } from '../data/services';
+
+const used = [...new Set(projects.flatMap((p) => p.services))].map((slug) => getService(slug)!).filter(Boolean);
+---
+
+<Base
+  title="Work: Websites, SEO and Campaigns for Real Businesses"
+  description="Selected Global Alpha Tech projects for clinics, schools, travel companies, gyms and studios, described by the clients in their own words."
+  crumbs={[{ label: 'Work' }]}
+>
+  <PageHero
+    crumbs={[{ label: 'Work' }]}
+    label="Work"
+    title="Work that clients"
+    light="talk about."
+    lead="Each project starts with a business problem and ends with the client's own words about what changed."
+  />
+
+  <section class="wrap pb-20 md:pb-32" data-work-filter>
+    <div class="flex flex-wrap items-center gap-2 border-y border-line py-5" role="group" aria-label="Filter by service">
+      <span class="t-label mr-3 text-muted">Filter</span>
+      <button type="button" class="chip min-h-10 px-4 text-fg transition-colors hover:border-fg aria-pressed:border-fg aria-pressed:bg-fg aria-pressed:text-bg" aria-pressed="true" data-filter="all">All work</button>
+      {
+        used.map((s) => (
+          <button type="button" class="chip min-h-10 px-4 text-fg transition-colors hover:border-fg aria-pressed:border-fg aria-pressed:bg-fg aria-pressed:text-bg" aria-pressed="false" data-filter={s.slug}>
+            {s.short.charAt(0).toUpperCase() + s.short.slice(1)}
+          </button>
+        ))
+      }
+      <p class="ml-auto font-mono text-xs text-muted" aria-live="polite"><span data-count>{projects.length}</span> projects</p>
+    </div>
+
+    <div class="mt-14 grid gap-x-8 gap-y-20 md:grid-cols-2">
+      {
+        projects.map((p, i) => (
+          <div data-services={p.services.join(' ')} class:list={[i % 2 === 1 && 'md:mt-28']}>
+            <WorkCard project={p} ratio={i % 4 === 0 || i % 4 === 3 ? '4/3' : '4/5'} detail sizes="(min-width: 768px) 45vw, 100vw" />
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <div class="border-t border-line">
+    <Testimonials />
+  </div>
+
+  <CtaBand title="Your business could be next." light="Let us show you how." />
+</Base>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-work-filter]');
+  if (root) {
+    const buttons = root.querySelectorAll<HTMLButtonElement>('[data-filter]');
+    const items = root.querySelectorAll<HTMLElement>('[data-services]');
+    const count = root.querySelector<HTMLElement>('[data-count]')!;
+    buttons.forEach((b) =>
+      b.addEventListener('click', () => {
+        const f = b.dataset.filter!;
+        buttons.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+        let shown = 0;
+        items.forEach((el, i) => {
+          const match = f === 'all' || el.dataset.services!.split(' ').includes(f);
+          el.hidden = !match;
+          if (match) shown++;
+          el.classList.toggle('md:mt-28', f === 'all' && i % 2 === 1);
+        });
+        count.textContent = String(shown);
+      }),
+    );
+  }
+</script>

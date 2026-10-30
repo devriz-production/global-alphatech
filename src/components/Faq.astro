@@ -1,0 +1,30 @@
+---
+// Accordion built on <details>, so it works without JavaScript. The shared `name`
+// makes browsers that support it keep only one answer open at a time.
+import Icon from './Icon.astro';
+
+interface Props {
+  items: { q: string; a: string }[];
+  numbered?: boolean;
+}
+const { items, numbered = true } = Astro.props;
+---
+
+<div class="border-t border-line" data-faq>
+  {
+    items.map((item, i) => (
+      <details class="group border-b border-line" name="faq">
+        <summary class="flex cursor-pointer list-none items-start gap-5 py-6 transition-colors hover:text-accent-text md:gap-8 md:py-7 [&::-webkit-details-marker]:hidden">
+          {numbered && <span class="mt-1.5 w-7 shrink-0 font-mono text-xs text-muted tabular-nums">{String(i + 1).padStart(2, '0')}</span>}
+          <span class="t-h4 flex-1 md:text-[1.35rem]">{item.q}</span>
+          <span class="mt-0.5 grid size-8 shrink-0 place-items-center rounded-full border border-line-strong transition-all duration-300 group-open:rotate-45 group-open:border-alpha group-open:bg-alpha group-open:text-white">
+            <Icon name="plus" size={16} />
+          </span>
+        </summary>
+        <div class:list={['pb-7 pr-12 text-muted', numbered && 'pl-12 md:pl-15']}>
+          <p class="max-w-2xl">{item.a}</p>
+        </div>
+      </details>
+    ))
+  }
+</div>

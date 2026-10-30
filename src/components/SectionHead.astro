@@ -1,0 +1,47 @@
+---
+import Icon from './Icon.astro';
+
+interface Props {
+  index?: string;
+  label: string;
+  title: string;
+  light?: string;
+  intro?: string;
+  link?: { label: string; href: string };
+  class?: string;
+  as?: 'h2' | 'h3';
+}
+const { index, label, title, light, intro, link, class: cls = '', as: Tag = 'h2' } = Astro.props;
+---
+
+<div class:list={['grid gap-6 md:grid-cols-12 md:items-end', cls]}>
+  <div class="md:col-span-8">
+    <p class="kicker mb-6" data-reveal>
+      {index && <b>{index}</b>}
+      {label}
+    </p>
+    <Tag class="t-h2" data-lines>
+      <span class="line"><span>{title}</span></span>
+      {
+        light && (
+          <span class="line">
+            <span class="light" style="--d:100ms">
+              {light}
+            </span>
+          </span>
+        )
+      }
+    </Tag>
+  </div>
+  <div class="flex flex-col gap-5 md:col-span-4 md:items-end md:text-right">
+    {intro && <p class="max-w-md text-muted" data-reveal style="--d:150ms">{intro}</p>}
+    {
+      link && (
+        <a href={link.href} class="link-arrow" data-reveal style="--d:200ms">
+          {link.label}
+          <Icon name="arrow-up-right" size={18} />
+        </a>
+      )
+    }
+  </div>
+</div>

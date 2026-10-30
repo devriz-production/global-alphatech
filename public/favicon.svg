@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <style>
+    .o { stroke: #0e1030 } .n { fill: #0e1030 }
+    @media (prefers-color-scheme: dark) { .o { stroke: #f5f4ef } .n { fill: #f5f4ef } }
+  </style>
+  <g class="o" fill="none" stroke-width="1.8">
+    <ellipse cx="16" cy="16" rx="13" ry="5.2"/>
+    <ellipse cx="16" cy="16" rx="13" ry="5.2" transform="rotate(60 16 16)"/>
+    <ellipse cx="16" cy="16" rx="13" ry="5.2" transform="rotate(120 16 16)"/>
+  </g>
+  <circle class="n" cx="16" cy="16" r="3"/>
+  <circle cx="29" cy="16" r="2.6" fill="#6A3DF0"/>
+</svg>

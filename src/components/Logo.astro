@@ -1,0 +1,33 @@
+---
+// The company logo. If the official file is placed at src/assets/brand/logo.(svg|png|webp)
+// it is used as is. Until then, a typeset version of the lockup: orbit mark, "Global" in heavy
+// weight and "ALPHA" in thin capitals, as on the existing logo.
+import { Image } from 'astro:assets';
+import Mark from './Mark.astro';
+import { findImage } from '../lib/media';
+
+interface Props {
+  class?: string;
+  sub?: boolean;
+}
+const { class: cls = '', sub = false } = Astro.props;
+const file = findImage('logo');
+---
+
+{
+  file ? (
+    <Image src={file} alt="Global Alpha Tech" height={44} class:list={['h-10 w-auto', cls]} loading="eager" />
+  ) : (
+    <span class:list={['inline-flex items-center gap-2.5', cls]}>
+      <Mark size={34} spin />
+      <span class="flex flex-col leading-none">
+        <span class="font-display text-[1.42rem] tracking-[-0.03em]" style="font-stretch:92%">
+          <span class="font-[780]">Global</span>
+          <span class="font-[230] uppercase tracking-[0.01em] text-accent-text">Alpha</span>
+        </span>
+        {sub && <span class="mt-1 font-mono text-[0.58rem] tracking-[0.32em] text-muted uppercase">Tech Security Pvt. Ltd.</span>}
+      </span>
+      <span class="sr-only">Global Alpha Tech</span>
+    </span>
+  )
+}

@@ -1,0 +1,101 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Media from '../components/Media.astro';
+import EnquiryForm from '../components/EnquiryForm.astro';
+import Icon from '../components/Icon.astro';
+import { roles, perks } from '../data/careers';
+import { site } from '../data/site';
+
+const hiring = roles.some((r) => r.open);
+---
+
+<Base
+  title="Careers in Digital Marketing, Design and Development"
+  description="Join Global Alpha Tech in Laxmi Nagar, Delhi. We hire SEO and performance marketers, designers, web and app developers, and content creators."
+  crumbs={[{ label: 'Careers' }]}
+>
+  <PageHero
+    crumbs={[{ label: 'Careers' }]}
+    label="Careers"
+    title="Do work that"
+    light="businesses can feel."
+    lead="Join a small team where your work goes live for real clients, and you learn how every part of digital growth fits together."
+  >
+    <div class="mt-10 flex flex-wrap gap-3" data-reveal style="--d:250ms">
+      <a href="#apply" class="btn btn-primary">Apply now<Icon name="arrow-down" size={18} /></a>
+      <a href="#roles" class="btn btn-ghost">See the roles</a>
+    </div>
+  </PageHero>
+
+  <section class="wrap" aria-label="The team">
+    <Media id="careers-hero" alt="The Global Alpha Tech team" class="aspect-[4/5] rounded-[1.25rem] sm:aspect-[16/9] lg:aspect-[21/9]" sizes="100vw" priority />
+  </section>
+
+  <section class="wrap section-y" aria-label="Why join">
+    <ul class="grid gap-10 md:grid-cols-3 md:gap-8">
+      {
+        perks.map((p, i) => (
+          <li class="border-t border-line-strong pt-6" data-reveal style={`--d:${i * 100}ms`}>
+            <span class="font-mono text-xs text-accent-text">{String(i + 1).padStart(2, '0')}</span>
+            <h2 class="t-h3 mt-6">{p.title}</h2>
+            <p class="mt-3 text-muted">{p.text}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section id="roles" class="wrap section-y pt-0" aria-labelledby="roles-title">
+    <div class="grid gap-10 lg:grid-cols-12">
+      <div class="lg:col-span-4">
+        <p class="kicker mb-6" data-reveal>Roles</p>
+        <h2 id="roles-title" class="t-h2" data-lines>
+          <span class="line"><span>Who we</span></span>
+          <span class="line"><span class="light" style="--d:100ms">hire.</span></span>
+        </h2>
+        <p class="mt-6 max-w-sm text-muted" data-reveal>
+          {hiring ? 'Roles marked "Hiring now" are open today. For the others, we keep strong applications on file.' : 'There are no fixed openings listed right now. If you are good at one of these, apply anyway: we keep strong applications on file and contact people when a role opens.'}
+        </p>
+      </div>
+      <ul class="lg:col-span-8">
+        {
+          roles.map((r) => (
+            <li class="grid gap-2 border-b border-line py-6 first:border-t sm:grid-cols-[1fr_auto] sm:items-center sm:gap-6">
+              <div>
+                <div class="flex flex-wrap items-center gap-3">
+                  <h3 class="t-h4 md:text-[1.35rem]">{r.title}</h3>
+                  {r.open && <span class="rounded-full bg-alpha px-2.5 py-1 font-mono text-[0.65rem] tracking-wide text-white uppercase">Hiring now</span>}
+                </div>
+                <p class="mt-1.5 text-[0.95rem] text-muted">{r.text}</p>
+              </div>
+              <span class="chip w-fit">{r.team}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section id="apply" class="border-t border-line bg-surface section-y" aria-labelledby="apply-title">
+    <div class="wrap grid gap-12 lg:grid-cols-12">
+      <div class="lg:col-span-4">
+        <p class="kicker mb-6" data-reveal>Apply</p>
+        <h2 id="apply-title" class="t-h2" data-lines>
+          <span class="line"><span>Show us</span></span>
+          <span class="line"><span class="light" style="--d:100ms">your best work.</span></span>
+        </h2>
+        <p class="mt-6 max-w-sm text-muted" data-reveal>Share a link to your CV and, if you have one, your portfolio. Links from Google Drive, Dropbox, Behance, GitHub or LinkedIn are all fine.</p>
+        <div class="mt-10 rounded-2xl border border-line-strong p-5 text-[0.95rem]" data-reveal>
+          <p class="font-[600]">A note on recruitment fraud</p>
+          <p class="mt-1.5 text-muted">
+            {site.name} never asks candidates for money at any stage of hiring. If someone does, it is not us: please report it to <a href={`mailto:${site.email}`} class="text-fg underline underline-offset-2">{site.email}</a>.
+          </p>
+        </div>
+      </div>
+      <div class="lg:col-span-7 lg:col-start-6">
+        <EnquiryForm kind="careers" />
+      </div>
+    </div>
+  </section>
+</Base>

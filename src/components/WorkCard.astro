@@ -1,0 +1,59 @@
+---
+import Media from './Media.astro';
+import { getService } from '../data/services';
+import type { Project } from '../data/work';
+
+interface Props {
+  project: Project;
+  ratio?: string;
+  sizes?: string;
+  class?: string;
+  detail?: boolean;
+}
+const { project: p, ratio = '4/3', sizes = '(min-width: 1024px) 50vw, 100vw', class: cls = '', detail = false } = Astro.props;
+---
+
+<article class:list={['group', cls]} data-reveal>
+  <div class="relative overflow-hidden rounded-[1.25rem]">
+    <Media id={`work-${p.slug}`} alt={p.title} ratio={ratio} sizes={sizes} imgClass="transition-transform duration-[1.2s] ease-[var(--ease)] group-hover:scale-[1.04]" />
+    <span class="absolute top-4 left-4 rounded-full bg-bg/90 px-3 py-1.5 font-mono text-[0.7rem] tracking-wide uppercase">{p.industry}</span>
+  </div>
+  <div class="mt-5 flex flex-wrap gap-2">
+    {
+      p.services.map((slug) => {
+        const s = getService(slug);
+        return s && (
+          <a href={`/services/${s.slug}/`} class="chip transition-colors hover:border-fg hover:text-fg">
+            {s.short.charAt(0).toUpperCase() + s.short.slice(1)}
+          </a>
+        );
+      })
+    }
+  </div>
+  <h3 class="t-h3 mt-4">{p.title}</h3>
+  {
+    detail ? (
+      <div class="mt-4 grid gap-4 text-[0.95rem] text-muted">
+        <p>
+          <span class="font-[600] text-fg">The brief. </span>
+          {p.brief}
+        </p>
+        <div>
+          <p class="font-[600] text-fg">What we did</p>
+          <ul class="mt-2 grid gap-1.5">
+            {p.did.map((d) => (
+              <li class="flex gap-2.5">
+                <span class="mt-[0.6em] size-1.5 shrink-0 rounded-full bg-alpha" />
+                {d}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    ) : null
+  }
+  <blockquote class="mt-4 border-l-2 border-alpha pl-4 text-[0.95rem]">
+    <p>&ldquo;{p.result}&rdquo;</p>
+    <footer class="mt-2 text-sm text-muted">{p.client}</footer>
+  </blockquote>
+</article>

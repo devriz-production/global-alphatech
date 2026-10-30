@@ -1,0 +1,88 @@
+---
+// The numbered services list. On devices with a mouse, hovering a row shows that
+// service's image in a small frame that follows the pointer.
+import Icon from './Icon.astro';
+import Media from './Media.astro';
+import { practices, services, servicesIn } from '../data/services';
+
+let n = 0;
+---
+
+<div class="relative" data-svc-index>
+  {
+    practices.map((p) => (
+      <div class="grid gap-2 border-t border-line-strong md:grid-cols-12 md:gap-8">
+        <div class="pt-6 md:col-span-3 md:pt-8">
+          <p class="t-label">{p.name}</p>
+          <p class="mt-2 max-w-[16rem] text-sm text-muted">{p.line}</p>
+        </div>
+        <ul class="md:col-span-9">
+          {servicesIn(p.id).map((s) => {
+            n += 1;
+            return (
+              <li class="border-b border-line last:border-b-0">
+                <a href={`/services/${s.slug}/`} class="group grid grid-cols-[2.25rem_1fr_auto] items-start gap-3 py-5 md:grid-cols-[3rem_1fr_auto] md:gap-5 md:py-7" data-preview={s.slug}>
+                  <span class="pt-2 font-mono text-xs text-muted tabular-nums md:pt-3">{String(n).padStart(2, '0')}</span>
+                  <span>
+                    <span class="t-h3 block transition-[color,translate] duration-500 group-hover:translate-x-1.5 group-hover:text-accent-text">{s.name}</span>
+                    <span class="mt-2 block max-w-xl text-[0.95rem] text-muted">{s.summary}</span>
+                  </span>
+                  <span class="mt-1 grid size-10 place-items-center rounded-full border border-line-strong transition-all duration-500 group-hover:border-alpha group-hover:bg-alpha group-hover:text-white md:size-12">
+                    <Icon name="arrow-up-right" size={18} />
+                  </span>
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    ))
+  }
+
+  <div class="pointer-events-none fixed top-0 left-0 z-30 hidden aspect-[4/5] w-[17rem] overflow-hidden rounded-2xl opacity-0 shadow-2xl transition-opacity duration-300 will-change-transform data-[on]:opacity-100 lg:block" data-preview-box aria-hidden="true">
+    {
+      services.map((s) => (
+        <div class="absolute inset-0 opacity-0 transition-opacity duration-300 data-[on]:opacity-100" data-preview-item={s.slug}>
+          <Media id={`service-${s.slug}`} alt="" fill sizes="272px" video={false} />
+        </div>
+      ))
+    }
+  </div>
+</div>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-svc-index]');
+  const box = root?.querySelector<HTMLElement>('[data-preview-box]');
+  if (root && box && matchMedia('(hover: hover) and (pointer: fine)').matches && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const items = new Map([...box.querySelectorAll<HTMLElement>('[data-preview-item]')].map((el) => [el.dataset.previewItem!, el]));
+    let x = 0, y = 0, tx = 0, ty = 0, raf = 0;
+
+    // The frame sits in the empty column left of the arrow buttons, so it never covers the
+    // service names, and glides up and down with the pointer with a slight tilt.
+    const column = () => root.getBoundingClientRect().right - box.offsetWidth - 84;
+    const tick = () => {
+      x += (tx - x) * 0.18;
+      y += (ty - y) * 0.14;
+      box.style.transform = `translate3d(${x}px, ${y}px, 0) rotate(${Math.max(-5, Math.min(5, (ty - y) * 0.05))}deg)`;
+      raf = Math.abs(tx - x) + Math.abs(ty - y) > 0.3 ? requestAnimationFrame(tick) : 0;
+    };
+
+    root.addEventListener('pointermove', (e) => {
+      tx = column();
+      ty = e.clientY - box.offsetHeight / 2;
+      if (!raf) raf = requestAnimationFrame(tick);
+    });
+
+    root.querySelectorAll<HTMLElement>('[data-preview]').forEach((link) => {
+      link.addEventListener('pointerenter', (e) => {
+        if (!box.hasAttribute('data-on')) {
+          x = tx = column();
+          y = ty = e.clientY - box.offsetHeight / 2;
+        }
+        items.forEach((el, key) => el.toggleAttribute('data-on', key === link.dataset.preview));
+        box.setAttribute('data-on', '');
+      });
+      link.addEventListener('pointerleave', () => box.removeAttribute('data-on'));
+    });
+  }
+</script>

@@ -1,0 +1,307 @@
+---
+// Contact and careers forms. Posts to /api/enquiry.php (Hostinger PHP). With JavaScript the
+// form sends in place and shows a confirmation; without it, the browser posts normally and
+// the handler redirects to /thank-you/. Field names must match public/api/enquiry.php.
+import Icon from './Icon.astro';
+import { services } from '../data/services';
+import { roles } from '../data/careers';
+import { site, whatsappLink } from '../data/site';
+
+interface Props {
+  kind?: 'contact' | 'careers';
+  service?: string;
+  class?: string;
+}
+const { kind = 'contact', service = '', class: cls = '' } = Astro.props;
+
+const budgets = ['Under ₹25,000', '₹25,000 to ₹1,00,000', '₹1,00,000 to ₹5,00,000', 'Above ₹5,00,000', 'Not sure yet'];
+const wa = whatsappLink();
+const id = (name: string) => `${kind}-${name}`;
+---
+
+<div class:list={['relative', cls]} data-enquiry>
+  <form action="/api/enquiry.php" method="post" class="grid gap-6" data-form>
+    <input type="hidden" name="form" value={kind} />
+    <input type="hidden" name="page" value={Astro.url.pathname} />
+    <input type="hidden" name="elapsed" value="0" />
+    <div class="absolute -left-[9999px]" aria-hidden="true">
+      <label for={id('website')}>Leave this empty</label>
+      <input id={id('website')} type="text" name="website" tabindex="-1" autocomplete="off" />
+    </div>
+
+    <div class="grid gap-6 sm:grid-cols-2">
+      <div class="field">
+        <label for={id('name')}>Full name</label>
+        <input id={id('name')} name="name" class="input" autocomplete="name" required maxlength="120" />
+        <p class="error-text" data-error="name" hidden></p>
+      </div>
+      <div class="field">
+        <label for={id('email')}>Email</label>
+        <input id={id('email')} name="email" type="email" class="input" autocomplete="email" required maxlength="200" />
+        <p class="error-text" data-error="email" hidden></p>
+      </div>
+      <div class="field">
+        <label for={id('phone')}>Phone or WhatsApp {kind === 'contact' && <span class="font-normal text-muted">(optional)</span>}</label>
+        <input id={id('phone')} name="phone" type="tel" class="input" autocomplete="tel" inputmode="tel" maxlength="30" required={kind === 'careers'} pattern="[0-9 \+\-\(\)]{7,20}" />
+        <p class="error-text" data-error="phone" hidden></p>
+      </div>
+      {
+        kind === 'contact' ? (
+          <div class="field">
+            <label for={id('company')}>
+              Business name <span class="font-normal text-muted">(optional)</span>
+            </label>
+            <input id={id('company')} name="company" class="input" autocomplete="organization" maxlength="160" />
+          </div>
+        ) : (
+          <div class="field">
+            <label for={id('city')}>Current city</label>
+            <input id={id('city')} name="city" class="input" autocomplete="address-level2" required maxlength="120" />
+            <p class="error-text" data-error="city" hidden />
+          </div>
+        )
+      }
+    </div>
+
+    {
+      kind === 'contact' ? (
+        <>
+          <div class="field">
+            <label for={id('service')}>What do you need help with?</label>
+            <select id={id('service')} name="service" class="input" data-service-select>
+              <option value="">Not sure yet, I would like advice</option>
+              {services.map((s) => (
+                <option value={s.slug} selected={s.slug === service}>
+                  {s.name}
+                </option>
+              ))}
+            </select>
+          </div>
+          <fieldset class="field">
+            <legend class="mb-1">Monthly or project budget</legend>
+            <div class="flex flex-wrap gap-2">
+              {budgets.map((b, i) => (
+                <label class="pill-option">
+                  <input type="radio" name="budget" value={b} checked={i === budgets.length - 1} />
+                  <span>{b}</span>
+                </label>
+              ))}
+            </div>
+          </fieldset>
+        </>
+      ) : (
+        <div class="grid gap-6 sm:grid-cols-2">
+          <div class="field">
+            <label for={id('role')}>Role</label>
+            <select id={id('role')} name="role" class="input" required>
+              <option value="">Choose a role</option>
+              {roles.map((r) => (
+                <option value={r.title}>{r.title}</option>
+              ))}
+              <option value="Internship">Internship</option>
+              <option value="Other">Something else</option>
+            </select>
+            <p class="error-text" data-error="role" hidden />
+          </div>
+          <div class="field">
+            <label for={id('experience')}>Total experience</label>
+            <select id={id('experience')} name="experience" class="input" required>
+              <option value="">Choose one</option>
+              <option>Fresher</option>
+              <option>Under 1 year</option>
+              <option>1 to 3 years</option>
+              <option>3 to 6 years</option>
+              <option>More than 6 years</option>
+            </select>
+            <p class="error-text" data-error="experience" hidden />
+          </div>
+          <div class="field">
+            <label for={id('resume')}>Link to your CV</label>
+            <input id={id('resume')} name="resume" type="url" class="input" placeholder="https://drive.google.com/..." required maxlength="300" />
+            <p class="hint">A Google Drive, Dropbox or LinkedIn link we can open.</p>
+            <p class="error-text" data-error="resume" hidden />
+          </div>
+          <div class="field">
+            <label for={id('portfolio')}>
+              Portfolio or work samples <span class="font-normal text-muted">(optional)</span>
+            </label>
+            <input id={id('portfolio')} name="portfolio" type="url" class="input" placeholder="https://" maxlength="300" />
+            <p class="error-text" data-error="portfolio" hidden />
+          </div>
+        </div>
+      )
+    }
+
+    <div class="field">
+      <label for={id('message')}>{kind === 'contact' ? 'Tell us about your business and goals' : 'Tell us about yourself and your best work'}</label>
+      <textarea id={id('message')} name="message" class="input" rows="5" required maxlength="4000" placeholder={kind === 'contact' ? 'What you sell, who you sell to, and what you would like to change.' : 'What you have worked on, what you are proud of, and what you want to learn next.'}></textarea>
+      <p class="error-text" data-error="message" hidden></p>
+    </div>
+
+    <div class="field">
+      <label class="flex cursor-pointer items-start gap-3 font-normal">
+        <input type="checkbox" name="consent" value="yes" required class="mt-1 size-5 shrink-0 accent-alpha" />
+        <span class="text-[0.95rem] text-muted">
+          I agree that {site.name} may contact me about this enquiry. My details are handled under the <a href="/privacy-policy/" class="text-fg underline underline-offset-2">privacy policy</a>.
+        </span>
+      </label>
+      <p class="error-text" data-error="consent" hidden></p>
+    </div>
+
+    <div class="flex flex-wrap items-center gap-5">
+      <button type="submit" class="btn btn-primary min-w-[12rem]" data-submit>
+        <span data-submit-label>{kind === 'contact' ? 'Send enquiry' : 'Send application'}</span>
+        <Icon name="arrow-right" size={18} />
+      </button>
+      <p class="text-sm text-muted">
+        Prefer to talk? <a href={site.phoneHref} class="link-u text-fg">{site.phone}</a>
+      </p>
+    </div>
+
+    <div class="rounded-2xl border border-line-strong p-5 text-[0.95rem]" role="alert" data-fail hidden>
+      <p class="font-[600]">Your message could not be sent.</p>
+      <p class="mt-1 text-muted">
+        Nothing was lost: please try again, or email <a href={`mailto:${site.email}`} class="text-fg underline underline-offset-2" data-mailto>{site.email}</a>
+        {wa && (
+          <>
+            {' '}or <a href={wa} target="_blank" rel="noopener" class="text-fg underline underline-offset-2">message us on WhatsApp</a>
+          </>
+        )}.
+      </p>
+    </div>
+  </form>
+
+  <div class="hidden py-6" data-done tabindex="-1">
+    <span class="grid size-14 place-items-center rounded-full bg-alpha text-white">
+      <Icon name="check" size={26} />
+    </span>
+    <h3 class="t-h3 mt-6">{kind === 'contact' ? 'Thank you. Your enquiry is with us.' : 'Thank you. Your application is in.'}</h3>
+    <p class="mt-3 max-w-lg text-muted">
+      {kind === 'contact' ? 'A member of the team will get back to you shortly to arrange a call. If it is urgent, call us on ' : 'We read every application. If your experience matches what we need, we will contact you to arrange a conversation. Questions? Call '}
+      <a href={site.phoneHref} class="text-fg underline underline-offset-2">{site.phone}</a>.
+    </p>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-enquiry]').forEach((root) => {
+    const form = root.querySelector<HTMLFormElement>('[data-form]')!;
+    const done = root.querySelector<HTMLElement>('[data-done]')!;
+    const fail = root.querySelector<HTMLElement>('[data-fail]')!;
+    const submit = root.querySelector<HTMLButtonElement>('[data-submit]')!;
+    const label = root.querySelector<HTMLElement>('[data-submit-label]')!;
+    const started = Date.now();
+    const idleLabel = label.textContent;
+    // Browsers without JavaScript keep native validation; with it, our messages take over.
+    form.noValidate = true;
+
+    // Arriving from a service page (?service=seo-services) preselects that service.
+    const params = new URLSearchParams(location.search);
+    const select = form.querySelector<HTMLSelectElement>('[data-service-select]');
+    const wanted = params.get('service');
+    if (select && wanted && [...select.options].some((o) => o.value === wanted)) select.value = wanted;
+    // Arriving from the Pricing page (?plan=retainer) starts the message for them.
+    const plans: Record<string, string> = { project: 'a fixed price project', retainer: 'a monthly growth retainer', advisory: 'advisory work' };
+    const plan = params.get('plan');
+    const message = form.elements.namedItem('message') as HTMLTextAreaElement | null;
+    if (plan && plans[plan] && message && !message.value) message.value = `I would like a quote for ${plans[plan]}. `;
+
+    const messages: Record<string, string> = {
+      name: 'Enter your name.',
+      email: 'Enter an email address in the format name@example.com.',
+      phone: 'Enter a phone number with 7 to 15 digits.',
+      city: 'Enter your current city.',
+      role: 'Choose a role.',
+      experience: 'Choose your experience.',
+      resume: 'Enter a full link to your CV, starting with https://',
+      portfolio: 'Enter a full link starting with https://',
+      message: 'Tell us a little about what you need.',
+      consent: 'Please tick this box so we can reply to you.',
+    };
+
+    const showErrors = (errors: Record<string, string>) => {
+      form.querySelectorAll<HTMLElement>('[data-error]').forEach((el) => {
+        const key = el.dataset.error!;
+        const field = form.elements.namedItem(key) as HTMLInputElement | null;
+        const msg = errors[key];
+        el.hidden = !msg;
+        el.textContent = msg ?? '';
+        if (field && 'setAttribute' in field) {
+          field.setAttribute('aria-invalid', msg ? 'true' : 'false');
+          if (msg && field.id) {
+            el.id = `${field.id}-error`;
+            field.setAttribute('aria-describedby', el.id);
+          }
+        }
+      });
+      const first = Object.keys(errors)[0];
+      if (first) (form.elements.namedItem(first) as HTMLElement | null)?.focus();
+    };
+
+    const validate = () => {
+      const errors: Record<string, string> = {};
+      for (const el of [...form.elements] as HTMLInputElement[]) {
+        if (!el.name || el.type === 'hidden' || el.name === 'website') continue;
+        if (el.type === 'url' && el.value && !/^https?:\/\//i.test(el.value)) errors[el.name] = messages[el.name];
+        else if (!el.checkValidity()) errors[el.name] = messages[el.name] ?? 'Please check this field.';
+      }
+      return errors;
+    };
+
+    form.addEventListener('input', (e) => {
+      const el = e.target as HTMLInputElement;
+      if (el.getAttribute('aria-invalid') === 'true' && el.checkValidity()) {
+        el.setAttribute('aria-invalid', 'false');
+        const err = form.querySelector<HTMLElement>(`[data-error="${el.name}"]`);
+        if (err) err.hidden = true;
+      }
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      fail.hidden = true;
+      const errors = validate();
+      showErrors(errors);
+      if (Object.keys(errors).length) return;
+
+      (form.elements.namedItem('elapsed') as HTMLInputElement).value = String(Math.round((Date.now() - started) / 1000));
+      submit.disabled = true;
+      label.textContent = 'Sending...';
+
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          headers: { Accept: 'application/json', 'X-Requested-With': 'fetch' },
+          body: new URLSearchParams(new FormData(form) as unknown as Record<string, string>),
+        });
+        const data = await res.json().catch(() => ({}));
+        if (res.ok && data.ok) {
+          form.hidden = true;
+          done.classList.remove('hidden');
+          done.focus();
+          (window as any).dataLayer?.push({ event: 'enquiry_sent', form: (form.elements.namedItem('form') as HTMLInputElement).value });
+          return;
+        }
+        if (res.status === 422 && data.errors) {
+          showErrors(data.errors);
+        } else {
+          throw new Error(data.error || String(res.status));
+        }
+      } catch {
+        const mail = fail.querySelector<HTMLAnchorElement>('[data-mailto]');
+        if (mail) {
+          const fd = new FormData(form);
+          const body = ['name', 'email', 'phone', 'company', 'service', 'budget', 'role', 'message']
+            .map((k) => (fd.get(k) ? `${k}: ${fd.get(k)}` : ''))
+            .filter(Boolean)
+            .join('\n');
+          mail.href = `mailto:${mail.textContent}?subject=${encodeURIComponent('Website enquiry')}&body=${encodeURIComponent(body)}`;
+        }
+        fail.hidden = false;
+      } finally {
+        submit.disabled = false;
+        label.textContent = idleLabel;
+      }
+    });
+  });
+</script>
