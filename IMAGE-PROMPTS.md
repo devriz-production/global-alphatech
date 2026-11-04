@@ -1,6 +1,6 @@
 # Image and video prompts for the Global Alpha Tech site
 
-29 of 29 images supplied. 0 of 2 required videos supplied. This file is generated from `src/data/slots.ts` by `npm run prompts`; edit that file, not this one.
+46 of 46 images supplied. 0 of 2 required videos supplied. This file is generated from `src/data/slots.ts` by `npm run prompts`; edit that file, not this one.
 
 ## How to hand images and videos back
 
@@ -367,9 +367,196 @@ Real photograph of the team: a relaxed group photo or a candid working moment in
 Real photograph of the office building entrance at Plot No. 8, 3rd Floor, B-61/152, Gali No. 4, Guru Nanak Pura, Laxmi Nagar, taken in daylight from the lane so a first time visitor recognises it. Do not use a generated image here.
 ```
 
-## Project screenshots (7)
+## Project screenshots (24)
 
 The best image for a project is the project itself. For each one, open the client's live website on a laptop at full width and take a clean screenshot of the homepage or the best page (or use a browser extension that captures at 2400 px wide). Ask the client's permission first. If a client cannot be shown, use the stand in prompt.
+
+### home-wireframe-meta-ads
+
+- **Save as:** `src/assets/photo/home-wireframe-meta-ads.jpg`
+- **Size:** 1600 x 1000 px (8:5)
+- **Used on:** Homepage 6-box wireframe (Row 1, Box 2): Meta Business Ads Account & Multi-Platform Previews
+- **Status:** supplied
+
+```text
+Clean 1600x1000 screenshot or device mockup of Meta Business Ads Manager showcasing high-performing sponsored video ad creatives for Facebook, Instagram, and TikTok. Ensure at least 40px padding inside the frame so headers, ad copy, and "Learn More" CTAs are fully readable without touching the borders.
+```
+
+### home-wireframe-shopify
+
+- **Save as:** `src/assets/photo/home-wireframe-shopify.jpg`
+- **Size:** 1600 x 1000 px (8:5)
+- **Used on:** Homepage 6-box wireframe (Row 1, Box 3): Shopify Store Admin & Theme Customizer
+- **Status:** supplied
+
+```text
+Clean 1600x1000 screenshot of Shopify Admin Panel (Online Store > Themes) showing the active Dawn theme with desktop and mobile storefront previews, "Customize" CTA, and backend store navigation. Keep UI centered with clean margins.
+```
+
+### home-wireframe-kotil
+
+- **Save as:** `src/assets/photo/home-wireframe-kotil.jpg`
+- **Size:** 1600 x 1000 px (8:5)
+- **Used on:** Homepage 6-box wireframe (Row 2, Box 1): Kotil Skin Science Live Clinic & Academy Website
+- **Status:** supplied
+
+```text
+Clean 1600x1000 screenshot of Kotil Skin Science live website header and hero section featuring 17-in-1 Hydra Facial Technology, medical practitioner, online appointment booking CTA, and top navigation. Ensure headline and CTA buttons sit within a safe 50px margin from all sides.
+```
+
+### home-wireframe-devriz
+
+- **Save as:** `src/assets/photo/home-wireframe-devriz.jpg`
+- **Size:** 1600 x 1000 px (8:5)
+- **Used on:** Homepage 6-box wireframe (Row 2, Box 2): Devriz Professional D2C E-Commerce Storefront
+- **Status:** supplied
+
+```text
+Clean 1600x1000 screenshot of Devriz Professional D2C skincare e-commerce website showing the top navigation, festive coupon banner ("FESTIVAL10"), skin diagnostic feature ("Know Your Real Skin Age"), and unboxing hero visual with clear Call & WhatsApp buttons.
+```
+
+### work-kotil-skin-science
+
+- **Save as:** `src/assets/photo/work-kotil-skin-science.jpg`
+- **Size:** 1600 x 1000 px (8:5)
+- **Used on:** Work page and homepage: Kotil Skin Science clinic and academy website
+- **Status:** supplied
+
+```text
+Kotil Skin Science live clinic and academy admissions website at 1600x1000 with safe margins.
+```
+
+### work-shopify-store-dawn
+
+- **Save as:** `src/assets/photo/work-shopify-store-dawn.jpg`
+- **Size:** 1600 x 1000 px (8:5)
+- **Used on:** Work page and homepage: Shopify store architecture and theme development
+- **Status:** supplied
+
+```text
+Shopify admin panel and Dawn theme customization at 1600x1000 with safe margins.
+```
+
+### work-meta-ads-acquisition
+
+- **Save as:** `src/assets/photo/work-meta-ads-acquisition.jpg`
+- **Size:** 1600 x 1000 px (8:5)
+- **Used on:** Work page and homepage: Meta Ads performance campaign previews
+- **Status:** supplied
+
+```text
+Meta Ads Manager Facebook and Instagram ad campaign previews at 1600x1000 with safe margins.
+```
+
+### work-devriz-ecommerce
+
+- **Save as:** `src/assets/photo/work-devriz-ecommerce.jpg`
+- **Size:** 1600 x 1000 px (8:5)
+- **Used on:** Work page and homepage: Devriz Professional D2C e-commerce website
+- **Status:** supplied
+
+```text
+Devriz Professional D2C e-commerce skincare storefront at 1600x1000 with safe margins.
+```
+
+### work-devriz-group-portal
+
+- **Save as:** `src/assets/photo/work-devriz-group-portal.jpg`
+- **Size:** 1600 x 1000 px (8:5)
+- **Used on:** Work page and homepage: Devriz Group enterprise corporate portal
+- **Status:** supplied
+
+```text
+Devriz Group corporate enterprise website across 7 sectors at 1600x1000 with safe margins.
+```
+
+### work-devriz-group
+
+- **Save as:** `src/assets/photo/work-devriz-group.jpg`
+- **Size:** 1024 x 522 px (512:261)
+- **Used on:** Work page and homepage: Devriz Group enterprise corporate portal
+- **Status:** supplied
+
+```text
+Devriz Group corporate enterprise website across 7 sectors.
+```
+
+### work-kotil-skin-science
+
+- **Save as:** `src/assets/photo/work-kotil-skin-science.jpg`
+- **Size:** 1899 x 787 px (1899:787)
+- **Used on:** Work page and homepage: Kotil Skin Science clinic and academy website
+- **Status:** supplied
+
+```text
+Kotil Skin Science live clinic and academy admissions website.
+```
+
+### work-shopify-store-dawn
+
+- **Save as:** `src/assets/photo/work-shopify-store-dawn.jpg`
+- **Size:** 455 x 290 px (91:58)
+- **Used on:** Work page and homepage: Shopify store architecture and theme development
+- **Status:** supplied
+
+```text
+Shopify admin panel and Dawn theme customization.
+```
+
+### work-meta-ads-acquisition
+
+- **Save as:** `src/assets/photo/work-meta-ads-acquisition.jpg`
+- **Size:** 2065 x 1170 px (413:234)
+- **Used on:** Work page and homepage: Meta Ads performance campaign previews
+- **Status:** supplied
+
+```text
+Meta Ads Manager Facebook and Instagram ad campaign previews.
+```
+
+### work-devriz-festive-campaign
+
+- **Save as:** `src/assets/photo/work-devriz-festive-campaign.jpg`
+- **Size:** 2560 x 987 px (2560:987)
+- **Used on:** Work page and homepage: Devriz Professional D2C festive performance campaign
+- **Status:** supplied
+
+```text
+Devriz Professional festive sales campaign creative.
+```
+
+### work-devriz-ecommerce
+
+- **Save as:** `src/assets/photo/work-devriz-ecommerce.jpg`
+- **Size:** 1024 x 446 px (512:223)
+- **Used on:** Work page and homepage: Devriz Professional D2C e-commerce website
+- **Status:** supplied
+
+```text
+Devriz Professional D2C e-commerce skincare storefront.
+```
+
+### work-devriz-group-portal
+
+- **Save as:** `src/assets/photo/work-devriz-group-portal.jpg`
+- **Size:** 1024 x 522 px (512:261)
+- **Used on:** Work page and homepage: Devriz Group enterprise corporate portal
+- **Status:** supplied
+
+```text
+Devriz Group corporate enterprise website across 7 sectors.
+```
+
+### work-devriz-group
+
+- **Save as:** `src/assets/photo/work-devriz-group.jpg`
+- **Size:** 1024 x 522 px (512:261)
+- **Used on:** Work page and homepage: Devriz Group enterprise corporate portal
+- **Status:** supplied
+
+```text
+Devriz Group corporate enterprise website across 7 sectors.
+```
 
 ### work-clinic-online-booking
 

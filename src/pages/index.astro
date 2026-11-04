@@ -38,14 +38,14 @@ const faqSchema = {
   schema={faqSchema}
 >
   <!-- Hero -->
-  <section class="wrap pt-10 pb-14 md:pt-16 md:pb-20">
+  <section class="wrap pt-10 pb-12 md:pt-16 md:pb-16">
     <div class="mb-10 flex flex-wrap items-center justify-between gap-4 md:mb-14">
       <p class="flex items-center gap-3 font-mono text-xs tracking-wide text-muted uppercase" data-reveal>
         <span class="live-dot"></span>
         Digital growth studio, Laxmi Nagar, Delhi
       </p>
       <p class="hidden font-mono text-xs tracking-wide text-muted uppercase md:block" data-reveal style="--d:80ms">
-        Strategy / Design / Engineering / Performance
+        Websites / Shopify / Meta Ads / Performance Growth
       </p>
     </div>
 
@@ -63,65 +63,144 @@ const faqSchema = {
         <span class="line text-right"><span style="--d:180ms">online.</span></span>
       </span>
     </h1>
-
-    <div class="mt-12 grid gap-10 md:mt-16 lg:grid-cols-12">
-      <div class="lg:col-span-6" data-reveal style="--d:250ms">
-        <p class="t-lead max-w-xl text-muted">
-          <strong class="font-[560] text-fg">{site.name}</strong> plans, builds and runs the digital side of your business: websites and apps, search, ads, social and brand. One team, one plan, and reports in rupees, not likes.
-        </p>
-        <div class="mt-8 flex flex-wrap gap-3">
-          <a href={cta.href} class="btn btn-primary">{cta.label}<Icon name="arrow-right" size={18} /></a>
-          <a href="/services/" class="btn btn-ghost">Explore services</a>
-        </div>
-      </div>
-      <nav class="lg:col-span-5 lg:col-start-8" aria-label="Popular services" data-reveal style="--d:320ms">
-        <p class="t-label text-muted">Popular right now</p>
-        <ul class="mt-4 grid grid-cols-1 border-t border-line sm:grid-cols-2 sm:gap-x-8 lg:grid-cols-1 xl:grid-cols-2">
-          {
-            quick.map((slug) => {
-              const s = services.find((x) => x.slug === slug)!;
-              return (
-                <li class="border-b border-line">
-                  <a href={`/services/${s.slug}/`} class="group flex items-center justify-between gap-3 py-3.5 font-[540]">
-                    {s.short.charAt(0).toUpperCase() + s.short.slice(1)}
-                    <Icon name="arrow-up-right" size={16} class="text-muted transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent-text" />
-                  </a>
-                </li>
-              );
-            })
-          }
-        </ul>
-      </nav>
-    </div>
   </section>
 
-  <!-- Reel -->
-  <section class="wrap" aria-label="Studio reel">
-    <div class="grow-in relative overflow-hidden rounded-[1.25rem]">
-      <Media id="home-hero-reel" alt="Paper blocks rising like a skyline, swept by a band of violet light" class="aspect-[4/5] sm:aspect-[16/9] lg:aspect-[21/9]" sizes="100vw" priority ticks />
-      <div class="pointer-events-none absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-6 text-white md:p-9">
-        <p class="font-display text-xl leading-tight font-[600] tracking-tight [text-shadow:0_1px_20px_rgb(0_0_0/0.35)] md:text-3xl">
-          Measured on enquiries,<br /><span class="light">not impressions.</span>
-        </p>
-        <p class="hidden items-center gap-2 rounded-full bg-white/12 px-3.5 py-2 font-mono text-[0.7rem] tracking-wide uppercase backdrop-blur-sm sm:flex">
-          <span class="live-dot"></span> Open for new projects
-        </p>
+  <!-- Real Work Showcase: 3-Column Collage -->
+  <section class="pb-4 md:pb-6 px-3 md:px-6" aria-label="Real work and capabilities">
+
+    <!-- Fixed-height collage: all 3 cols share the same height, flex fills space proportionally -->
+    <div class="flex flex-col lg:flex-row gap-2.5" style="height: auto;">
+
+      <!-- ── Column 1 (Left): Text card + img-4 ── -->
+      <div class="flex flex-col gap-2.5 lg:w-[30%]">
+
+        <!-- Text Card -->
+        <div class="flex flex-col justify-between gap-5 rounded-2xl border border-line bg-surface/60 p-6 xl:p-8" data-reveal style="flex:1.15">
+          <div class="space-y-3">
+            <div class="inline-flex items-center gap-2 rounded-full border border-line bg-surface px-3 py-1 font-mono text-[0.7rem] uppercase tracking-wider text-muted">
+              <span class="size-1.5 rounded-full bg-alpha"></span>
+              What we do &middot; Built for revenue
+            </div>
+            <h2 class="font-display text-xl xl:text-2xl font-[700] leading-[1.18] tracking-tight text-fg">
+              Websites, Shopify stores & Meta ads engineered for real enquiries.
+            </h2>
+            <p class="text-muted leading-relaxed text-sm">
+              <strong class="font-[600] text-fg">{site.name}</strong> plans, codes, and scales the actual digital revenue engines of your business. No vague impressions or fake followers. We engineer custom clinic & academy portals, high-speed Shopify stores, and hyper-targeted Meta ad campaigns that deliver paying clients.
+            </p>
+          </div>
+          <div>
+            <div class="flex flex-wrap gap-1.5 pb-4">
+              <span class="chip text-xs">Custom Web Portals</span>
+              <span class="chip text-xs">Shopify Dawn & Liquid</span>
+              <span class="chip text-xs">Meta Ads (FB & IG)</span>
+              <span class="chip text-xs">Local SEO Growth</span>
+            </div>
+            <div class="flex flex-wrap items-center gap-3">
+              <a href={cta.href} class="btn btn-primary">{cta.label}<Icon name="arrow-right" size={16} /></a>
+              <a href="/services/" class="btn btn-ghost text-sm">Explore services</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- img-4: Devriz Professional -->
+        <div class="relative overflow-hidden rounded-2xl bg-surface" data-reveal style="--d:120ms; flex:1; min-height:180px;">
+          <Media id="home-img-4" alt="Devriz Professional D2C skincare e-commerce website" quiet fill imgClass="object-cover object-top" />
+          <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent px-4 py-3">
+            <p class="text-white text-xs font-[600]">Devriz Professional</p>
+            <p class="text-white/70 text-[0.7rem]">D2C skincare store</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ── Column 2 (Center): img-1 + img-2 + img-3 ── -->
+      <div class="flex flex-col gap-2.5 lg:w-[40%]">
+
+        <!-- img-1: Meta Ads -->
+        <div class="relative overflow-hidden rounded-2xl bg-surface" data-reveal style="--d:60ms; flex:1; min-height:160px;">
+          <Media id="home-img-1" alt="Meta Ads Manager multi-platform campaign previews" quiet fill imgClass="object-cover object-top" />
+          <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent px-4 py-3">
+            <p class="text-white text-xs font-[600]">Meta & Social Performance Ads</p>
+            <p class="text-white/70 text-[0.7rem]">adsmanager.facebook.com</p>
+          </div>
+        </div>
+
+        <!-- img-2: Shopify Admin -->
+        <div class="relative overflow-hidden rounded-2xl bg-surface" data-reveal style="--d:120ms; flex:1; min-height:160px;">
+          <Media id="home-img-2" alt="Shopify admin panel Dawn theme customization" quiet fill imgClass="object-cover object-top" />
+          <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent px-4 py-3">
+            <p class="text-white text-xs font-[600]">Shopify Store Architecture</p>
+            <p class="text-white/70 text-[0.7rem]">admin.shopify.com</p>
+          </div>
+        </div>
+
+        <!-- img-3: Kotil -->
+        <div class="relative overflow-hidden rounded-2xl bg-surface" data-reveal style="--d:180ms; flex:1; min-height:160px;">
+          <Media id="home-img-3" alt="Kotil Skin Science clinic and academy website" quiet fill imgClass="object-cover object-top" />
+          <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent px-4 py-3">
+            <p class="text-white text-xs font-[600]">Kotil Skin Science</p>
+            <p class="text-white/70 text-[0.7rem]">kotilskinscience.com</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ── Column 3 (Right): img-5 + Text card ── -->
+      <div class="flex flex-col gap-2.5 lg:w-[30%]">
+
+        <!-- img-5: Devriz Group -->
+        <div class="relative overflow-hidden rounded-2xl bg-surface" data-reveal style="--d:180ms; flex:1; min-height:180px;">
+          <Media id="home-img-5" alt="Devriz Group multi-sector corporate enterprise portal" quiet fill imgClass="object-cover object-top" />
+          <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent px-4 py-3">
+            <p class="text-white text-xs font-[600]">Devriz Group Corporate</p>
+            <p class="text-white/70 text-[0.7rem]">devrizgroup.com</p>
+          </div>
+        </div>
+
+        <!-- Text Card 2: We Grow -->
+        <div class="flex flex-col justify-between gap-5 rounded-2xl border border-line bg-surface/60 p-6 xl:p-8" data-reveal style="--d:240ms; flex:1.15">
+          <div class="space-y-3">
+            <p class="font-mono text-xs uppercase tracking-wider text-accent-text font-[600]">Revenue-driven studio</p>
+            <h3 class="font-display text-xl xl:text-2xl font-[700] leading-tight text-fg tracking-tight">
+              we grow gyms, schools and businesses.
+            </h3>
+            <p class="text-muted text-sm leading-relaxed">
+              From neighbourhood fitness centres and private schools to medical clinics and D2C brands, we engineer digital pipelines that consistently bring in qualified leads and orders.
+            </p>
+          </div>
+          <div class="space-y-3">
+            <div class="grid grid-cols-2 gap-3 border-t border-line pt-4">
+              <div>
+                <p class="font-display text-2xl xl:text-3xl font-[700] text-fg">2x-4x</p>
+                <p class="text-xs text-muted mt-0.5">Enquiry surge</p>
+              </div>
+              <div>
+                <p class="font-display text-2xl xl:text-3xl font-[700] text-fg">100%</p>
+                <p class="text-xs text-muted mt-0.5">Accounts in your name</p>
+              </div>
+            </div>
+            <a href="/work/" class="link-arrow text-sm font-[600]">
+              See verified client results <Icon name="arrow-up-right" size={16} />
+            </a>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
 
   <!-- Marquee -->
-  <div class="marquee mt-16 border-y border-line py-6 md:mt-24 md:py-8" aria-hidden="true">
+  <div class="marquee my-4 md:my-6 border-y border-line py-3 md:py-4" aria-hidden="true">
     <div class="marquee-track" style="--speed:60s">
       {
         [0, 1].map(() => (
           <div class="flex shrink-0 items-center">
             {services.map((s) => (
               <span class="flex items-center">
-                <span class="px-6 font-display text-[clamp(2rem,5vw,4.25rem)] leading-none font-[680] tracking-[-0.035em] whitespace-nowrap md:px-10" style="font-stretch:88%">
+                <span class="px-6 font-display text-[clamp(1.75rem,4vw,3.5rem)] leading-none font-[680] tracking-[-0.035em] whitespace-nowrap md:px-8" style="font-stretch:88%">
                   {s.short.charAt(0).toUpperCase() + s.short.slice(1)}
                 </span>
-                <Mark size={36} class="text-muted" />
+                <Mark size={28} class="text-muted" />
               </span>
             ))}
           </div>
@@ -131,7 +210,7 @@ const faqSchema = {
   </div>
 
   <!-- Statement -->
-  <section class="wrap section-y">
+  <section class="wrap pt-6 pb-14 md:pt-8 md:pb-20">
     <div class="grid gap-12 lg:grid-cols-12 lg:gap-10">
       <div class="lg:col-span-8">
         <p class="kicker mb-8" data-reveal>The studio</p>
@@ -212,7 +291,7 @@ const faqSchema = {
   <section class="wrap section-y pt-0" aria-label="Selected work">
     <SectionHead index="04" label="Selected work" title="Real businesses," light="real results." intro="A few of the projects our clients have described in their own words." link={{ label: 'See all work', href: '/work/' }} />
     <div class="mt-14 grid gap-x-8 gap-y-16 md:mt-20 md:grid-cols-12">
-      {featured.map((p, i) => <WorkCard project={p} ratio={layout[i].ratio} class={layout[i].col} sizes="(min-width: 768px) 55vw, 100vw" />)}
+      {featured.map((p, i) => <WorkCard project={p} ratio="16/10" class={layout[i].col} sizes="(min-width: 768px) 55vw, 100vw" />)}
     </div>
   </section>
 
@@ -296,6 +375,33 @@ const faqSchema = {
 
   .cycler :global(.cycler-word.is-leaving) {
     transform: translateY(-150%);
+  }
+  .showcase-card {
+    position: relative;
+    border-radius: 1.25rem;
+    overflow: hidden;
+    border: 1px solid var(--color-line);
+    background: var(--color-surface);
+    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.04);
+    transition: transform 0.4s var(--ease), border-color 0.4s var(--ease), box-shadow 0.4s var(--ease);
+  }
+
+  .showcase-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--color-line-strong);
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.08);
+  }
+
+  .showcase-chrome {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding: 0.7rem 1rem;
+    background: var(--color-surface);
+    border-bottom: 1px solid var(--color-line);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
   }
 </style>
 

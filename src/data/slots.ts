@@ -23,6 +23,53 @@ export const videoStyle =
   'Cinematic product film look, photorealistic, 24 fps, slow and controlled camera motion, no cuts. Same palette as the stills: deep indigo, warm off-white and one electric violet accent light. No text, logos or readable screens. The last frame must match the first so the clip loops without a visible jump. Export H.264 MP4 at 1920 x 1080 or larger, under 8 MB, with no audio track.';
 
 export const slots: Slot[] = [
+  // ---- Homepage Wireframe Real Work Showcase (5 Image Slots @ 1600x1000) ---
+  {
+    id: 'home-img-1',
+    w: 1600,
+    h: 1000,
+    usedOn: 'Homepage Card Section: img-1 (Center Column, Top) - Meta Ads Manager Multi-Platform Previews',
+    kind: 'screenshot',
+    prompt:
+      'Meta Business Ads Manager showcasing high-converting multi-platform video ad creatives for Facebook, Instagram, and TikTok with safe 50px margins.',
+  },
+  {
+    id: 'home-img-2',
+    w: 1600,
+    h: 1000,
+    usedOn: 'Homepage Card Section: img-2 (Center Column, Middle) - Shopify Admin Panel & Store Themes',
+    kind: 'screenshot',
+    prompt:
+      'Shopify Admin Panel (Themes / Dawn theme customization) showing desktop and mobile storefront mockups with centered safe margins.',
+  },
+  {
+    id: 'home-img-3',
+    w: 1600,
+    h: 1000,
+    usedOn: 'Homepage Card Section: img-3 (Center Column, Bottom) - Kotil Skin Science Live Clinic & Academy Website',
+    kind: 'screenshot',
+    prompt:
+      'Kotil Skin Science live website header and hero with 17-in-1 Hydra Facial Technology, medical practitioner, and booking CTAs.',
+  },
+  {
+    id: 'home-img-4',
+    w: 1600,
+    h: 1000,
+    usedOn: 'Homepage Card Section: img-4 (Left Column, Bottom) - Devriz Professional D2C Skincare Storefront',
+    kind: 'screenshot',
+    prompt:
+      'Devriz Professional D2C skincare e-commerce website showing storefront, coupon code, skin age test, and order tracker.',
+  },
+  {
+    id: 'home-img-5',
+    w: 1600,
+    h: 1000,
+    usedOn: 'Homepage Card Section: img-5 (Right Column, Top) - Devriz Group Corporate Enterprise Portal',
+    kind: 'screenshot',
+    prompt:
+      'Devriz Group corporate enterprise website across 7 business sectors with safe margins and sub-second performance display.',
+  },
+
   // ---- Homepage ----------------------------------------------------------------
   {
     id: 'home-hero-reel',
@@ -167,7 +214,111 @@ export const slots: Slot[] = [
     video: { prompt: 'A hand draws a pencil arrow connecting two shapes on the flowchart while the camera drifts slowly overhead. 8 seconds.', seconds: 8 },
   },
 
-  // ---- Work (real screenshots are best) ---------------------------------------
+  // ---- Work (real screenshots, uniform 16:10 @ 1600x1000) -------------------
+  {
+    id: 'work-kotil-skin-science',
+    w: 1600,
+    h: 1000,
+    usedOn: 'Work page and homepage: Kotil Skin Science clinic and academy website',
+    kind: 'screenshot',
+    prompt: 'Kotil Skin Science live clinic and academy admissions website at 1600x1000 with safe margins.',
+  },
+  {
+    id: 'work-shopify-store-dawn',
+    w: 1600,
+    h: 1000,
+    usedOn: 'Work page and homepage: Shopify store architecture and theme development',
+    kind: 'screenshot',
+    prompt: 'Shopify admin panel and Dawn theme customization at 1600x1000 with safe margins.',
+  },
+  {
+    id: 'work-meta-ads-acquisition',
+    w: 1600,
+    h: 1000,
+    usedOn: 'Work page and homepage: Meta Ads performance campaign previews',
+    kind: 'screenshot',
+    prompt: 'Meta Ads Manager Facebook and Instagram ad campaign previews at 1600x1000 with safe margins.',
+  },
+  {
+    id: 'work-devriz-ecommerce',
+    w: 1600,
+    h: 1000,
+    usedOn: 'Work page and homepage: Devriz Professional D2C e-commerce website',
+    kind: 'screenshot',
+    prompt: 'Devriz Professional D2C e-commerce skincare storefront at 1600x1000 with safe margins.',
+  },
+  {
+    id: 'work-devriz-group-portal',
+    w: 1600,
+    h: 1000,
+    usedOn: 'Work page and homepage: Devriz Group enterprise corporate portal',
+    kind: 'screenshot',
+    prompt: 'Devriz Group corporate enterprise website across 7 sectors at 1600x1000 with safe margins.',
+  },
+  {
+    id: 'work-devriz-group',
+    w: 1024,
+    h: 522,
+    usedOn: 'Work page and homepage: Devriz Group enterprise corporate portal',
+    kind: 'screenshot',
+    prompt: 'Devriz Group corporate enterprise website across 7 sectors.',
+  },
+  {
+    id: 'work-kotil-skin-science',
+    w: 1899,
+    h: 787,
+    usedOn: 'Work page and homepage: Kotil Skin Science clinic and academy website',
+    kind: 'screenshot',
+    prompt: 'Kotil Skin Science live clinic and academy admissions website.',
+  },
+  {
+    id: 'work-shopify-store-dawn',
+    w: 455,
+    h: 290,
+    usedOn: 'Work page and homepage: Shopify store architecture and theme development',
+    kind: 'screenshot',
+    prompt: 'Shopify admin panel and Dawn theme customization.',
+  },
+  {
+    id: 'work-meta-ads-acquisition',
+    w: 2065,
+    h: 1170,
+    usedOn: 'Work page and homepage: Meta Ads performance campaign previews',
+    kind: 'screenshot',
+    prompt: 'Meta Ads Manager Facebook and Instagram ad campaign previews.',
+  },
+  {
+    id: 'work-devriz-festive-campaign',
+    w: 2560,
+    h: 987,
+    usedOn: 'Work page and homepage: Devriz Professional D2C festive performance campaign',
+    kind: 'screenshot',
+    prompt: 'Devriz Professional festive sales campaign creative.',
+  },
+  {
+    id: 'work-devriz-ecommerce',
+    w: 1024,
+    h: 446,
+    usedOn: 'Work page and homepage: Devriz Professional D2C e-commerce website',
+    kind: 'screenshot',
+    prompt: 'Devriz Professional D2C e-commerce skincare storefront.',
+  },
+  {
+    id: 'work-devriz-group-portal',
+    w: 1024,
+    h: 522,
+    usedOn: 'Work page and homepage: Devriz Group enterprise corporate portal',
+    kind: 'screenshot',
+    prompt: 'Devriz Group corporate enterprise website across 7 sectors.',
+  },
+  {
+    id: 'work-devriz-group',
+    w: 1024,
+    h: 522,
+    usedOn: 'Work page and homepage: Devriz Group enterprise corporate portal',
+    kind: 'screenshot',
+    prompt: 'Devriz Group corporate enterprise website across 7 sectors.',
+  },
   {
     id: 'work-clinic-online-booking',
     w: 2400,

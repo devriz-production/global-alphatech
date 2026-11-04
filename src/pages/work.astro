@@ -37,11 +37,11 @@ const used = [...new Set(projects.flatMap((p) => p.services))].map((slug) => get
       <p class="ml-auto font-mono text-xs text-muted" aria-live="polite"><span data-count>{projects.length}</span> projects</p>
     </div>
 
-    <div class="mt-14 grid gap-x-8 gap-y-20 md:grid-cols-2">
+    <div class="mt-14 grid gap-x-8 gap-y-16 md:grid-cols-2">
       {
         projects.map((p, i) => (
-          <div data-services={p.services.join(' ')} class:list={[i % 2 === 1 && 'md:mt-28']}>
-            <WorkCard project={p} ratio={i % 4 === 0 || i % 4 === 3 ? '4/3' : '4/5'} detail sizes="(min-width: 768px) 45vw, 100vw" />
+          <div data-services={p.services.join(' ')}>
+            <WorkCard project={p} ratio="16/10" detail sizes="(min-width: 768px) 45vw, 100vw" />
           </div>
         ))
       }
