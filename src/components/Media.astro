@@ -34,6 +34,7 @@ const {
   video: allowVideo = true,
   ticks = false,
   quiet = false,
+  fit = 'cover',
 } = Astro.props;
 
 const image = findImage(id);
@@ -50,7 +51,7 @@ const poster = clip && image ? (await getImage({ src: image, width: Math.min(160
   {
     clip ? (
       <video
-        class:list={['absolute inset-0 h-full w-full object-cover', imgClass]}
+        class:list={[`absolute inset-0 h-full w-full object-${fit}`, imgClass]}
         style={`object-position:${position}`}
         autoplay
         muted
@@ -74,7 +75,7 @@ const poster = clip && image ? (await getImage({ src: image, width: Math.min(160
         loading={priority ? 'eager' : 'lazy'}
         decoding={priority ? 'sync' : 'async'}
         fetchpriority={priority ? 'high' : undefined}
-        class:list={['absolute inset-0 h-full w-full object-cover', imgClass]}
+        class:list={[`absolute inset-0 h-full w-full object-${fit}`, imgClass]}
         style={`object-position:${position}`}
       />
     ) : quiet ? null : (
