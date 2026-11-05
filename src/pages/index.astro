@@ -38,8 +38,8 @@ const faqSchema = {
   schema={faqSchema}
 >
   <!-- Hero -->
-  <section class="wrap pt-10 pb-12 md:pt-16 md:pb-16">
-    <div class="mb-10 flex flex-wrap items-center justify-between gap-4 md:mb-14">
+  <section class="hero-shell wrap pt-8 pb-12 md:pt-12 md:pb-16">
+    <div class="hero-topline mb-10 flex flex-wrap items-center justify-between gap-4 md:mb-14">
       <p class="flex items-center gap-3 font-mono text-xs tracking-wide text-muted uppercase" data-reveal>
         <span class="live-dot"></span>
         Digital growth studio, Laxmi Nagar, Delhi
@@ -75,7 +75,7 @@ const faqSchema = {
       <div class="flex flex-col gap-2.5 lg:w-[30%]">
 
         <!-- Text Card -->
-        <div class="flex flex-col justify-between gap-5 rounded-2xl border border-line bg-surface/60 p-6 xl:p-8" data-reveal style="flex:1.15">
+        <div class="showcase-card flex flex-col justify-between gap-5 rounded-2xl border border-line bg-surface/60 p-6 xl:p-8" data-reveal style="flex:1.15">
           <div class="space-y-3">
             <div class="inline-flex items-center gap-2 rounded-full border border-line bg-surface px-3 py-1 font-mono text-[0.7rem] uppercase tracking-wider text-muted">
               <span class="size-1.5 rounded-full bg-alpha"></span>
@@ -158,7 +158,7 @@ const faqSchema = {
         </div>
 
         <!-- Text Card 2: We Grow -->
-        <div class="flex flex-col justify-between gap-5 rounded-2xl border border-line bg-surface/60 p-6 xl:p-8" data-reveal style="--d:240ms; flex:1.15">
+        <div class="showcase-card flex flex-col justify-between gap-5 rounded-2xl border border-line bg-surface/60 p-6 xl:p-8" data-reveal style="--d:240ms; flex:1.15">
           <div class="space-y-3">
             <p class="font-mono text-xs uppercase tracking-wider text-accent-text font-[600]">Revenue-driven studio</p>
             <h3 class="font-display text-xl xl:text-2xl font-[700] leading-tight text-fg tracking-tight">
@@ -339,13 +339,58 @@ const faqSchema = {
 </Base>
 
 <style>
+  .hero-shell {
+    position: relative;
+    isolation: isolate;
+    margin-top: 1rem;
+    border: 1px solid var(--color-line);
+    border-radius: 2rem;
+    background:
+      radial-gradient(circle at 82% 18%, color-mix(in srgb, var(--color-alpha) 20%, transparent), transparent 28%),
+      linear-gradient(135deg, color-mix(in srgb, var(--color-surface) 92%, transparent), transparent 72%);
+    overflow: hidden;
+  }
+
+  .hero-shell::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    top: 2rem;
+    right: var(--gutter);
+    width: min(34rem, 62vw);
+    height: min(34rem, 62vw);
+    border-radius: 50%;
+    background: radial-gradient(circle, color-mix(in srgb, var(--color-alpha) 18%, transparent) 0%, transparent 68%);
+    filter: blur(8px);
+    pointer-events: none;
+  }
+
+  .hero-shell::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    opacity: 0.32;
+    background-image: linear-gradient(var(--color-line) 1px, transparent 1px), linear-gradient(90deg, var(--color-line) 1px, transparent 1px);
+    background-size: 4rem 4rem;
+    mask-image: linear-gradient(90deg, black, transparent 78%);
+    pointer-events: none;
+  }
+
+  .hero-topline {
+    border-bottom: 1px solid var(--line);
+    padding: 0.8rem 0.25rem 1rem;
+  }
+
   .hero-title {
+    position: relative;
     font-family: var(--font-display);
     font-size: clamp(3.4rem, 12.6vw, 13.5rem);
     line-height: 0.88;
     letter-spacing: -0.05em;
     font-weight: 760;
     font-stretch: 84%;
+    text-shadow: 0 0 50px color-mix(in srgb, var(--color-alpha) 10%, transparent);
   }
 
   /* Room for descenders (g, p) inside the masked lines. */
@@ -378,18 +423,23 @@ const faqSchema = {
   }
   .showcase-card {
     position: relative;
-    border-radius: 1.25rem;
+    border-radius: 1.5rem;
     overflow: hidden;
     border: 1px solid var(--color-line);
     background: var(--color-surface);
-    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.04);
+    box-shadow: 0 18px 50px -24px rgb(0 0 0 / 0.85);
     transition: transform 0.4s var(--ease), border-color 0.4s var(--ease), box-shadow 0.4s var(--ease);
   }
 
   .showcase-card:hover {
     transform: translateY(-4px);
-    border-color: var(--color-line-strong);
-    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.08);
+    border-color: var(--color-alpha);
+    box-shadow: 0 20px 40px -10px color-mix(in srgb, var(--color-alpha) 20%, transparent);
+  }
+
+  .showcase-card :global(h2),
+  .showcase-card :global(h3) {
+    text-wrap: balance;
   }
 
   .showcase-chrome {

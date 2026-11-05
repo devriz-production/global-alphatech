@@ -11,14 +11,14 @@
 */
 
 :root {
-  --bg: #f5f4ef;
-  --fg: #0e1030;
-  --muted: #4b4e6b;
-  --line: rgb(14 16 48 / 0.13);
-  --line-strong: rgb(14 16 48 / 0.28);
-  --surface: #ecebe4;
-  --surface-2: #e3e1d8;
-  --accent-text: #5530e0;
+  --bg: #07111f;
+  --fg: #f4f8f7;
+  --muted: #9aafbd;
+  --line: rgb(202 230 232 / 0.15);
+  --line-strong: rgb(202 230 232 / 0.3);
+  --surface: #0d1d2d;
+  --surface-2: #13283a;
+  --accent-text: #5de1d0;
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
   --gutter: clamp(1rem, 4vw, 2.5rem);
   --header-h: 4.5rem;
@@ -51,13 +51,14 @@
 }
 
 @theme {
-  --color-paper: #f5f4ef;
-  --color-ink: #0e1030;
-  --color-night: #0a0b22;
-  --color-alpha: #6a3df0;
-  --color-alpha-deep: #5530e0;
-  --color-alpha-light: #a68cff;
-  --color-alpha-soft: #e7e0ff;
+  --color-paper: #07111f;
+  --color-ink: #f4f8f7;
+  --color-night: #02070d;
+  --color-alpha: #5de1d0;
+  --color-alpha-deep: #2db7b1;
+  --color-alpha-light: #a5fff1;
+  --color-alpha-soft: #123e47;
+  --color-ink-soft: #b8cbd2;
 
   --font-display: 'Bricolage Grotesque Variable', ui-sans-serif, system-ui, sans-serif;
   --font-sans: 'Geist Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
