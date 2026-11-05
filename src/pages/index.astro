@@ -60,7 +60,7 @@ const faqSchema = {
         </div>
       </div>
       <div class="new-hero__media" data-reveal style="--d:140ms">
-        <Media id="home-img-5" alt="Devriz Group multi-sector corporate enterprise portal" fill imgClass="object-contain object-top" />
+        <Media id="home-img-5" alt="Devriz Group multi-sector corporate enterprise portal" fill fit="contain" imgClass="object-top" />
         <div class="new-hero__caption"><span>Selected system / 2024-25</span><span>Devriz Group</span></div>
         <div class="new-hero__stamp">GA<span>+</span></div>
       </div>
@@ -360,7 +360,7 @@ const faqSchema = {
   .new-hero__stamp { position: absolute; top: 1.25rem; right: 1.25rem; display: grid; place-items: center; width: 4.5rem; height: 4.5rem; border: 1px solid rgb(255 255 255 / .55); border-radius: 50%; color: white; font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; transform: rotate(12deg); }
   .new-hero__stamp span { color: var(--color-alpha); }
   .hero-line { height: 1px; flex: 1; background: var(--line); }
-  .work-index { padding-block: clamp(4rem, 9vw, 8rem); }
+  .work-index { padding-block: clamp(2.5rem, 5vw, 4rem); }
   .work-index__heading { display: grid; grid-template-columns: 1fr 1.3fr 1fr; align-items: end; gap: 2rem; margin-bottom: clamp(2.5rem, 6vw, 5rem); }
   .section-title { font-family: var(--font-display); font-size: clamp(3rem, 6vw, 6rem); line-height: .88; letter-spacing: -.06em; font-weight: 720; }
   .section-title em { color: var(--color-alpha); font-style: normal; }
@@ -380,8 +380,8 @@ const faqSchema = {
   .work-note p { max-width: 23rem; font-family: var(--font-display); font-size: clamp(1.35rem, 2.5vw, 2.25rem); line-height: 1.04; letter-spacing: -.035em; }
   @media (max-width: 767px) {
     .new-hero__grid, .work-index__heading, .work-index__grid { grid-template-columns: 1fr; }
-    .new-hero__grid { gap: 3rem; padding-block: 4rem; }
-    .new-hero__media { min-height: 28rem; }
+    .new-hero__grid { gap: 2rem; padding-block: 3rem; }
+    .new-hero__media { min-height: 24rem; }
     .new-hero__footer { align-items: flex-start; flex-direction: column; }
     .work-index__heading { gap: 1.25rem; }
     .work-tile--tall { min-height: 25rem; }
