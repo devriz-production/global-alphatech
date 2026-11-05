@@ -13,8 +13,8 @@
 :root {
   --bg: #f5f4ef;
   --fg: #0e1030;
-  --muted: #4b4e6b;
-  --line: rgb(14 16 48 / 0.13);
+  --muted: #3d4161;
+  --line: rgb(14 16 48 / 0.16);
   --line-strong: rgb(14 16 48 / 0.28);
   --surface: #ecebe4;
   --surface-2: #e3e1d8;
@@ -58,6 +58,7 @@
   --color-alpha-deep: #5530e0;
   --color-alpha-light: #a68cff;
   --color-alpha-soft: #e7e0ff;
+  --color-ink-soft: #25284a;
 
   --font-display: 'Bricolage Grotesque Variable', ui-sans-serif, system-ui, sans-serif;
   --font-sans: 'Geist Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
