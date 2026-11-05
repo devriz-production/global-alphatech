@@ -60,8 +60,14 @@ const faqSchema = {
         </div>
       </div>
       <div class="new-hero__media" data-reveal style="--d:140ms">
-        <Media id="home-img-5" alt="Devriz Group multi-sector corporate enterprise portal" fill fit="contain" imgClass="object-top" />
-        <div class="new-hero__caption"><span>Selected system / 2024-25</span><span>Devriz Group</span></div>
+        <div class="new-hero__media-card">
+          <Media id="home-img-5" alt="Devriz Group multi-sector corporate enterprise portal" fill fit="contain" imgClass="object-center" />
+          <span class="new-hero__media-label">Devriz Group / Corporate system</span>
+        </div>
+        <div class="new-hero__media-card">
+          <Media id="home-img-4" alt="Devriz Professional Shopify skincare storefront" fill fit="contain" imgClass="object-center" />
+          <span class="new-hero__media-label">Devriz Professional / Shopify commerce</span>
+        </div>
         <div class="new-hero__stamp">GA<span>+</span></div>
       </div>
     </div>
@@ -344,8 +350,8 @@ const faqSchema = {
   .eyebrow, .hero-index { font-family: var(--font-mono); font-size: .7rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
   .eyebrow { display: inline-flex; align-items: center; gap: .6rem; }
   .hero-index { color: var(--color-alpha); margin-bottom: 1.5rem; }
-  .new-hero__grid { display: grid; grid-template-columns: minmax(0, 1.02fr) minmax(18rem, .98fr); align-items: end; gap: clamp(2rem, 8vw, 9rem); padding-block: clamp(3.5rem, 8vw, 8rem); }
-  .new-hero__title { font-family: var(--font-display); font-size: clamp(4rem, 10.4vw, 10rem); line-height: .82; letter-spacing: -.075em; font-weight: 760; }
+  .new-hero__grid { display: grid; grid-template-columns: minmax(0, 1.02fr) minmax(18rem, .98fr); align-items: center; gap: clamp(2rem, 6vw, 6rem); min-height: min(56svh, 31rem); padding-block: clamp(.75rem, 1.5vw, 1.5rem); }
+  .new-hero__title { font-family: var(--font-display); font-size: clamp(3.6rem, 8.5vw, 7.5rem); line-height: .82; letter-spacing: -.075em; font-weight: 760; }
   .new-hero__title .line { display: block; overflow: hidden; padding-bottom: .12em; margin-bottom: -.12em; }
   .new-hero__title .line > span { display: inline-block; }
   .hero-outline { color: transparent; -webkit-text-stroke: 1px var(--fg); }
@@ -353,11 +359,12 @@ const faqSchema = {
   .new-hero__actions { display: flex; align-items: center; flex-wrap: wrap; gap: 1.25rem; margin-top: 2.25rem; }
   .text-link { display: inline-flex; align-items: center; gap: .5rem; font-weight: 600; color: var(--fg); }
   .text-link:hover { color: var(--color-alpha); }
-  .new-hero__media { position: relative; min-height: clamp(24rem, 48vw, 43rem); overflow: hidden; background: var(--surface); }
-  .new-hero__media img { filter: saturate(.75) contrast(1.1); transition: transform 1.2s var(--ease); }
-  .new-hero__media:hover img { transform: scale(1.04); }
-  .new-hero__caption { position: absolute; inset: auto 1.25rem 1.25rem; display: flex; justify-content: space-between; gap: 1rem; color: white; font-family: var(--font-mono); font-size: .65rem; text-transform: uppercase; letter-spacing: .08em; }
-  .new-hero__stamp { position: absolute; top: 1.25rem; right: 1.25rem; display: grid; place-items: center; width: 4.5rem; height: 4.5rem; border: 1px solid rgb(255 255 255 / .55); border-radius: 50%; color: white; font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; transform: rotate(12deg); }
+  .new-hero__media { position: relative; display: grid; grid-template-rows: repeat(2, minmax(0, 1fr)); gap: .75rem; min-height: min(71svh, 43rem); overflow: visible; }
+  .new-hero__media-card { position: relative; min-height: 0; overflow: hidden; background: var(--surface); border: 1px solid var(--line); }
+  .new-hero__media-card img { filter: saturate(.78) contrast(1.08); transition: transform 1.2s var(--ease); }
+  .new-hero__media-card:hover img { transform: scale(1.025); }
+  .new-hero__media-label { position: absolute; inset: auto .8rem .7rem; color: white; font-family: var(--font-mono); font-size: .58rem; text-transform: uppercase; letter-spacing: .08em; text-shadow: 0 1px 10px rgb(0 0 0 / .7); }
+  .new-hero__stamp { position: absolute; top: .8rem; right: .8rem; z-index: 2; display: grid; place-items: center; width: 3.25rem; height: 3.25rem; border: 1px solid rgb(255 255 255 / .7); border-radius: 50%; color: white; font-family: var(--font-display); font-size: .9rem; font-weight: 700; transform: rotate(12deg); }
   .new-hero__stamp span { color: var(--color-alpha); }
   .hero-line { height: 1px; flex: 1; background: var(--line); }
   .work-index { padding-block: clamp(2.5rem, 5vw, 4rem); }
@@ -380,8 +387,8 @@ const faqSchema = {
   .work-note p { max-width: 23rem; font-family: var(--font-display); font-size: clamp(1.35rem, 2.5vw, 2.25rem); line-height: 1.04; letter-spacing: -.035em; }
   @media (max-width: 767px) {
     .new-hero__grid, .work-index__heading, .work-index__grid { grid-template-columns: 1fr; }
-    .new-hero__grid { gap: 2rem; padding-block: 3rem; }
-    .new-hero__media { min-height: 24rem; }
+    .new-hero__grid { gap: .75rem; min-height: auto; padding-block: .75rem 1.25rem; }
+    .new-hero__media { min-height: min(28svh, 15rem); gap: .4rem; }
     .new-hero__footer { align-items: flex-start; flex-direction: column; }
     .work-index__heading { gap: 1.25rem; }
     .work-tile--tall { min-height: 25rem; }
