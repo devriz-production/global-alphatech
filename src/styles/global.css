@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 @import 'tailwindcss';
 
 /*
@@ -11,14 +12,14 @@
 */
 
 :root {
-  --bg: #07111f;
-  --fg: #f4f8f7;
-  --muted: #9aafbd;
-  --line: rgb(202 230 232 / 0.15);
-  --line-strong: rgb(202 230 232 / 0.3);
-  --surface: #0d1d2d;
-  --surface-2: #13283a;
-  --accent-text: #5de1d0;
+  --bg: #f4f9fc;
+  --fg: #183247;
+  --muted: #617789;
+  --line: rgb(94 132 155 / 0.2);
+  --line-strong: rgb(61 105 132 / 0.38);
+  --surface: #e7f2f8;
+  --surface-2: #d7eaf3;
+  --accent-text: #087eaa;
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
   --gutter: clamp(1rem, 4vw, 2.5rem);
   --header-h: 4.5rem;
@@ -26,17 +27,17 @@
 }
 
 .theme-night {
-  --bg: #0a0b22;
-  --fg: #eeedf6;
-  --muted: #a3a5c2;
-  --line: rgb(255 255 255 / 0.12);
-  --line-strong: rgb(255 255 255 / 0.26);
-  --surface: #13153a;
-  --surface-2: #1b1d48;
-  --accent-text: #a68cff;
+  --bg: #f4f9fc;
+  --fg: #183247;
+  --muted: #617789;
+  --line: rgb(94 132 155 / 0.2);
+  --line-strong: rgb(61 105 132 / 0.38);
+  --surface: #e7f2f8;
+  --surface-2: #d7eaf3;
+  --accent-text: #087eaa;
   background-color: var(--bg);
   color: var(--fg);
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 @theme inline {
@@ -51,18 +52,18 @@
 }
 
 @theme {
-  --color-paper: #07111f;
-  --color-ink: #f4f8f7;
-  --color-night: #02070d;
-  --color-alpha: #5de1d0;
-  --color-alpha-deep: #2db7b1;
-  --color-alpha-light: #a5fff1;
-  --color-alpha-soft: #123e47;
-  --color-ink-soft: #b8cbd2;
+  --color-paper: #f4f9fc;
+  --color-ink: #183247;
+  --color-night: #dbeef7;
+  --color-alpha: #0b8fbd;
+  --color-alpha-deep: #066d91;
+  --color-alpha-light: #78cce5;
+  --color-alpha-soft: #cbe8f2;
+  --color-ink-soft: #547083;
 
-  --font-display: 'Bricolage Grotesque Variable', ui-sans-serif, system-ui, sans-serif;
-  --font-sans: 'Geist Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --font-mono: 'Geist Mono Variable', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  --font-display: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Poppins', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'Poppins', ui-sans-serif, system-ui, sans-serif;
 
   --breakpoint-xs: 30rem;
   --breakpoint-3xl: 110rem;
