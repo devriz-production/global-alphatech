@@ -342,6 +342,13 @@ const faqSchema = {
   .hero-shell {
     position: relative;
     isolation: isolate;
+    margin-top: 1rem;
+    border: 1px solid var(--color-line);
+    border-radius: 2rem;
+    background:
+      radial-gradient(circle at 82% 18%, color-mix(in srgb, var(--color-alpha) 20%, transparent), transparent 28%),
+      linear-gradient(135deg, color-mix(in srgb, var(--color-surface) 92%, transparent), transparent 72%);
+    overflow: hidden;
   }
 
   .hero-shell::before {
@@ -358,18 +365,32 @@ const faqSchema = {
     pointer-events: none;
   }
 
+  .hero-shell::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    opacity: 0.32;
+    background-image: linear-gradient(var(--color-line) 1px, transparent 1px), linear-gradient(90deg, var(--color-line) 1px, transparent 1px);
+    background-size: 4rem 4rem;
+    mask-image: linear-gradient(90deg, black, transparent 78%);
+    pointer-events: none;
+  }
+
   .hero-topline {
     border-bottom: 1px solid var(--line);
-    padding-bottom: 1rem;
+    padding: 0.8rem 0.25rem 1rem;
   }
 
   .hero-title {
+    position: relative;
     font-family: var(--font-display);
     font-size: clamp(3.4rem, 12.6vw, 13.5rem);
     line-height: 0.88;
     letter-spacing: -0.05em;
     font-weight: 760;
     font-stretch: 84%;
+    text-shadow: 0 0 50px color-mix(in srgb, var(--color-alpha) 10%, transparent);
   }
 
   /* Room for descenders (g, p) inside the masked lines. */
@@ -402,11 +423,11 @@ const faqSchema = {
   }
   .showcase-card {
     position: relative;
-    border-radius: 1.25rem;
+    border-radius: 1.5rem;
     overflow: hidden;
     border: 1px solid var(--color-line);
     background: var(--color-surface);
-    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.04);
+    box-shadow: 0 18px 50px -24px rgb(0 0 0 / 0.85);
     transition: transform 0.4s var(--ease), border-color 0.4s var(--ease), box-shadow 0.4s var(--ease);
   }
 
